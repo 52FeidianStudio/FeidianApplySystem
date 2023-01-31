@@ -1,0 +1,36 @@
+.login-content
+{
+  width: 700px;
+  height: 100vh;
+  .login-box
+  {
+    width: 475px;
+    border-radius:15px;
+    background: #fff;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    .logo{
+      width: 70px;
+      height: 70px;
+      margin: 40px 0 10px 200px;
+    }
+    .input-content
+    {
+      @inputMargin:50px;
+      width: calc(100% - @inputMargin * 2);
+      height: calc(100% - @inputMargin * 2);
+      margin: 20px @inputMargin 0 @inputMargin;
+    }
+    .tips{
+      width: 100%;
+      line-height: 60px;
+      color: grey;
+      text-align: center;
+    }
+    .tips:hover
+    {
+      color: #1677ff;
+    }
+  }
+}
+
+

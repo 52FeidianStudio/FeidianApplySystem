@@ -1,0 +1,24 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+body{
+  width: 100vw;
+  min-height: 100vh;
+  background: #f6f6f6;
+  overflow-x:hidden;
+}
+#root {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.flex-center
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.margin-center
+{
+  margin: 0 auto;
+}
