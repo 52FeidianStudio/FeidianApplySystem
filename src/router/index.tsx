@@ -45,6 +45,15 @@ export const rootRouter: RouteObject[] = [
             key: "changepasswird"
         }
     },
+    {
+        path: "/admin_home",
+        element: <ChangePassword />,
+        meta: {
+            requiresAuth: false,
+            title: "修改密码",
+            key: "changepasswird"
+        }
+    },
 ];
 const Router = () => {
     // @ts-ignore

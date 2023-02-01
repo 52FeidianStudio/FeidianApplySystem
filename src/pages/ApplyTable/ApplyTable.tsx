@@ -3,11 +3,11 @@ import apis from "../../network/api"
 import {
     Button,
     Form,
-    Input,
+    Input, notification,
     Select,
     Upload
 } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import {FrownOutlined, PlusOutlined, SmileOutlined} from '@ant-design/icons';
 import React from 'react';
 import logoUrl from "../../assets/logo_text.png";
 const { Option } = Select;
@@ -37,12 +37,16 @@ const tailFormItemLayout = {
 const App: React.FC = () => {
     const [form] = Form.useForm();
     const token = localStorage.getItem('token');
-    const onFinish = (values: any) => {
-        let obj = {
-               demo:23123
-        }
-        console.log(values,obj);
-        apis.SendApplication(values);
+    const onFinish = async (values: any) => {
+        console.log(values);
+        let res = await apis.SendApplication(values);
+        notification.open({
+            message: res.data.message == "修改成功" ? "申请提交成功，面试时间请关注群内信息" : "提交失败，请联系负责人",
+            description:
+                'Please check your information',
+            icon: res.data.code == "200" ? <SmileOutlined style={{ color: '#108ee9' }} /> : <FrownOutlined style={{color:"red"}} />,
+            placement:"top"
+        });
     };
 
 

@@ -31,7 +31,14 @@ const Login:React.FC = function () {
         if(res.data.code == "200")
         {
             localStorage.setItem('token',res.data.data.token);
-            navigate("/apply");
+            if(res.data.data.role == "user")
+            {
+                navigate("/apply");
+            }
+            else
+            {
+                navigate("/admin_home")
+            }
         }
     }
     //页面跳转函数

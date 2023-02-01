@@ -21,7 +21,8 @@ const apis = {
     {
         return request({
             url:"/user",
-            method:"POST"
+            method:"POST",
+            data:data
         })
     },
     SendCode(data:string){

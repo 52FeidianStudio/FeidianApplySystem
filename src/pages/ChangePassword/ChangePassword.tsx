@@ -16,7 +16,7 @@ const Login:React.FC = function () {
     const handleChange = async (e:any)=> {
         await setForm({...form,[e.target.name]:e.target.value});
     }
-    //登录部分函数
+    //修改密码部分函数
     const navigate = useNavigate();
     const [messageApi, contextHolder] = message.useMessage();
     const ChangePasswordMethod = async ()=>
