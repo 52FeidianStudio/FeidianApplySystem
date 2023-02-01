@@ -53,8 +53,8 @@ const Register:React.FC = function () {
             <div className="register-box">
                 <img className="logo" src={LogoUrl}/>
                 <div className="input-content">
-                    <Input size="large" placeholder="Username" prefix={<UserOutlined />} name="username" value={form.username} onChange={handleChange}/>
-                    <Input style={{marginTop:"20px"}} size="large" placeholder="Email" prefix={<MailOutlined />} name="email" value={form.email} onChange={handleChange}/>
+                    <Input maxLength={20} size="large" placeholder="Username" prefix={<UserOutlined />} name="username" value={form.username} onChange={handleChange}/>
+                    <Input maxLength={30} style={{marginTop:"20px"}} size="large" placeholder="Email" prefix={<MailOutlined />} name="email" value={form.email} onChange={handleChange}/>
                     <Input.Password
                         style={{marginTop:"20px"}}
                         size="large"
@@ -62,6 +62,7 @@ const Register:React.FC = function () {
                         placeholder="Password"
                         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                         name="password" value={form.password} onChange={handleChange}
+                        maxLength={250}
                     />
                 </div>
                 <Button onClick={RegisterMethod} style={{margin:"20px 50px 20px 50px",width:'calc(100% - 100px)'}} type="primary" size="large">Register</Button>

@@ -23,6 +23,19 @@ const apis = {
             url:"/user",
             method:"POST"
         })
+    },
+    SendCode(data:string){
+        return request({
+            url:`/verification/email?username=${data}`,
+            method:"GET"
+        })
+    },
+    ChangePassword(data:any){
+        return request({
+            url:`/verification/email`,
+            method:"POST",
+            data:data
+        })
     }
 };
 export default apis;

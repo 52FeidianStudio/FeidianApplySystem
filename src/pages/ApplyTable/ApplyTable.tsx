@@ -1,18 +1,14 @@
 import "./ApplyTable.less"
 import apis from "../../network/api"
 import {
-    AutoComplete,
     Button,
-    Cascader,
-    Checkbox,
-    Col,
     Form,
     Input,
-    InputNumber,
-    Row,
     Select,
+    Upload
 } from 'antd';
-import React, { useState } from 'react';
+import { PlusOutlined } from '@ant-design/icons';
+import React from 'react';
 import logoUrl from "../../assets/logo_text.png";
 const { Option } = Select;
 const formItemLayout = {
@@ -40,9 +36,12 @@ const tailFormItemLayout = {
 
 const App: React.FC = () => {
     const [form] = Form.useForm();
-
+    const token = localStorage.getItem('token');
     const onFinish = (values: any) => {
-        console.log('Received values of form: ', values);
+        let obj = {
+               demo:23123
+        }
+        console.log(values,obj);
         apis.SendApplication(values);
     };
 
@@ -63,7 +62,6 @@ const App: React.FC = () => {
                     style={{ width:"80%",marginTop:"50px"}}
                     scrollToFirstError
                 >
-
                     <Form.Item
                         name="name"
                         label="姓名"
@@ -125,7 +123,7 @@ const App: React.FC = () => {
 
                     <Form.Item
                         name="grade"
-                        label="年级"
+                        label="入学年份"
                         rules={[{ required: true, message: '请输入你所在的年级!' }]}
                     >
                         <Input maxLength={20} style={{ width: '100%' }} />
@@ -181,11 +179,22 @@ const App: React.FC = () => {
                     >
                         <Input.TextArea showCount maxLength={300} />
                     </Form.Item>
+
+                    <Form.Item label="Upload" valuePropName="fileList">
+                        <Upload action="http://101.43.181.13:8888/user/img" headers={{token:`${token}`}} listType="picture-card">
+                            <div>
+                                <PlusOutlined />
+                                <div>上传你的照片</div>
+                            </div>
+                        </Upload>
+                    </Form.Item>
+
                     <Form.Item {...tailFormItemLayout}>
                         <Button style={{marginBottom:"50px" }} type="primary" htmlType="submit">
                             Apply
                         </Button>
                     </Form.Item>
+
                 </Form>
             </div>
         </div>

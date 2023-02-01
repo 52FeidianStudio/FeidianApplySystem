@@ -46,7 +46,7 @@ const Login:React.FC = function () {
            <div className="login-box">
                <img className="logo" src={LogoUrl}/>
                <div className="input-content">
-                   <Input size="large" placeholder="Username" prefix={<UserOutlined />}  name="username" value={form.username} onChange={handleChange}/>
+                   <Input maxLength={30} size="large" placeholder="Username" prefix={<UserOutlined />}  name="username" value={form.username} onChange={handleChange}/>
                    <Input.Password
                        style={{marginTop:"20px"}}
                        size="large"
@@ -54,6 +54,7 @@ const Login:React.FC = function () {
                        placeholder="Password"
                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined/> )}
                        name="password" value={form.password} onChange={handleChange}
+                       maxLength={250}
                    />
                </div>
                <Button onClick={LoginMethod} style={{margin:"20px 50px 20px 50px",width:'calc(100% - 100px)'}} type="primary" size="large">Login</Button>
