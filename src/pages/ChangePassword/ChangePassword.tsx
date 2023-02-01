@@ -1,5 +1,5 @@
-import React, {useState,useCallback} from 'react';
-import './Login.less'
+import React, {useState} from 'react';
+import './ChangePassword.less'
 import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone ,PaperClipOutlined,SmileOutlined,FrownOutlined } from '@ant-design/icons';
 import { Input,Button,notification } from 'antd';
 import LogoUrl from "../../assets/logo.png";
@@ -34,35 +34,28 @@ const Login:React.FC = function () {
             navigate("/apply");
         }
     }
-    //页面跳转函数
     const toRegister = ()=>{
         navigate("/register")
     }
-    const toChangePassword = ()=>{
-        navigate("/forget")
-    }
     return (
-       <div className="login-content flex-center margin-center">
-           <div className="login-box">
-               <img className="logo" src={LogoUrl}/>
-               <div className="input-content">
-                   <Input size="large" placeholder="Username" prefix={<UserOutlined />}  name="username" value={form.username} onChange={handleChange}/>
-                   <Input.Password
-                       style={{marginTop:"20px"}}
-                       size="large"
-                       prefix={<PaperClipOutlined />}
-                       placeholder="Password"
-                       iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined/> )}
-                       name="password" value={form.password} onChange={handleChange}
-                   />
-               </div>
-               <Button onClick={LoginMethod} style={{margin:"20px 50px 20px 50px",width:'calc(100% - 100px)'}} type="primary" size="large">Login</Button>
-               <div className="tips">
-                   <div onClick={toRegister} className="tips-register">点此注册</div>
-                   <div onClick={toChangePassword} className="tips-forget">忘记密码</div>
-               </div>
-           </div>
-       </div>
+        <div className="login-content flex-center margin-center">
+            <div className="login-box">
+                <img className="logo" src={LogoUrl}/>
+                <div className="input-content">
+                    <Input size="large" placeholder="Username" prefix={<UserOutlined />}  name="username" value={form.username} onChange={handleChange}/>
+                    <Input.Password
+                        style={{marginTop:"20px"}}
+                        size="large"
+                        prefix={<PaperClipOutlined />}
+                        placeholder="Password"
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined/> )}
+                        name="password" value={form.password} onChange={handleChange}
+                    />
+                </div>
+                <Button onClick={LoginMethod} style={{margin:"20px 50px 20px 50px",width:'calc(100% - 100px)'}} type="primary" size="large">Login</Button>
+                <div onClick={toRegister} className="tips">点此注册</div>
+            </div>
+        </div>
     );
 }
 export default Login;

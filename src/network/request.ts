@@ -5,7 +5,7 @@ export default function request(config:any) {
     timeout: 20000,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
-      'authorization': localStorage.getItem('token')
+      'token': localStorage.getItem('token')
     },
     method:config.method
   })

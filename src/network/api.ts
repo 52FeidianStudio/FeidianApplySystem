@@ -16,6 +16,13 @@ const apis = {
             method:'POST',
             data:data
         })
+    },
+    SendApplication(data:any)
+    {
+        return request({
+            url:"/user",
+            method:"POST"
+        })
     }
 };
 export default apis;
