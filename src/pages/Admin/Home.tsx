@@ -1,9 +1,10 @@
 import "./Home.less"
 import React, { useEffect, useState } from 'react';
-import {Avatar, List, Tabs, Switch, Row, Col, Divider, Drawer} from 'antd';
+import {Avatar, List, Tabs, Switch, Row, Col, Divider, Drawer,Button} from 'antd';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import {UserInfotype,TabsType} from "../../type/common";
-import apis from "../../network/apis"
+import apis from "../../network/apis";
+import logoUrl from "../../assets/logo.png"
 interface DescriptionItemProps {
     title: string;
     content: React.ReactNode;
@@ -17,6 +18,7 @@ const DescriptionItem = ({ title, content }: DescriptionItemProps) => (
 const AdminHome:React.FC = ()=>{
     const [list, setList] = useState<UserInfotype[]>([]);
     const [tabs,setTabs] = useState<TabsType[]>([]);
+    const [allSelectState,setAllSelectState] = useState(false)
     //标签栏相关
     const ChangeTabs = (key: string) => {
         apis.GetAllApplyInfo({grade:key}).then((res)=>{
@@ -28,7 +30,7 @@ const AdminHome:React.FC = ()=>{
     };
     //数据初始化
     useEffect(() => {
-        apis.GetAllGrade().then(async (res)=>{
+           apis.GetAllGrade().then((res)=>{
             if (res.data.code == "200")
             {
                 let grades = res.data.data.grade;
@@ -39,8 +41,9 @@ const AdminHome:React.FC = ()=>{
                         label:item
                     })
                 })
-                await setTabs(newTabs);
-                apis.GetAllApplyInfo({grade:tabs[0].key}).then((res)=>{
+                setTabs(newTabs);
+                //获取初始化申请列表
+                apis.GetAllApplyInfo({grade:grades[0]}).then((res)=>{
                     if(res.data.code == "200")
                     {
                         setList(res.data.data.users);
@@ -48,6 +51,7 @@ const AdminHome:React.FC = ()=>{
                 });
             }
         })
+
 
     }, []);
 
@@ -62,10 +66,23 @@ const AdminHome:React.FC = ()=>{
     const onClose = () => {
         setOpen(false);
     };
-    // @ts-ignore
+    //邮件发送
+    const AllSelect = (value:boolean)=>{
+        console.log(value);
+        setAllSelectState(value);
+    }
+    const SingleSelect = (value:boolean,index:number)=>{
+        console.log(value,index)
+    }
     return(
         <>
         <div className="admin-home-content">
+            <div className="header-content">
+                <img alt="logo" src={logoUrl}/>
+                <div className="header-title">报名系统后台</div>
+                <div className="header-button"><Button>发送邮件</Button></div>
+                <div className="header-switch"><Switch checkedChildren="全选" unCheckedChildren="无" defaultChecked={allSelectState} onChange={AllSelect}/></div>
+            </div>
             <div className="tabs-content">
                 <Tabs items={tabs} onChange={ChangeTabs} />
             </div>
@@ -84,6 +101,9 @@ const AdminHome:React.FC = ()=>{
                                 unCheckedChildren={<CloseOutlined />}
                                 defaultChecked
                                 size="small"
+                                onChange={(value)=>{
+                                    SingleSelect(value,index);
+                                }}
                             />,]}
                         >
                             <List.Item.Meta

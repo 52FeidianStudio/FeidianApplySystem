@@ -29,6 +29,7 @@ export interface UserInfotype {
     selfIntroduction?:string,
     status?:string,
     imgURL?:string,
+    selectState?:boolean
 }
 export interface TabsType{
     key:string,
