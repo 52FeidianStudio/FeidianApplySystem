@@ -37,6 +37,20 @@ const apis = {
             method:"POST",
             data:data
         })
+    },
+    //用户管理相关接口
+    GetAllApplyInfo(data:any){
+        return request({
+            url:"/admin/view",
+            method:"POST",
+            data:data
+        })
+    },
+    GetAllGrade(){
+        return request({
+            url:"/admin/grade",
+            method:"GET"
+        })
     }
 };
 export default apis;

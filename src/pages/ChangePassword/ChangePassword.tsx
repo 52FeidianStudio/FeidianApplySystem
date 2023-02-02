@@ -4,7 +4,7 @@ import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone ,PaperClipOutlined,Smile
 import { Input,Button,notification ,Space,message} from 'antd';
 import LogoUrl from "../../assets/logo.png";
 import type {NewPasswordType} from "../../type/common";
-import apis from "../../network/api";
+import apis from "../../network/apis";
 import { useNavigate } from "react-router-dom";
 const Login:React.FC = function () {
     const NewPassword:NewPasswordType = {

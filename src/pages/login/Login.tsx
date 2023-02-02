@@ -4,7 +4,7 @@ import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone ,PaperClipOutlined,Smile
 import { Input,Button,notification } from 'antd';
 import LogoUrl from "../../assets/logo.png";
 import type {LoginInfoType} from "../../type/common";
-import apis from "../../network/api";
+import apis from "../../network/apis";
 import { useNavigate } from "react-router-dom";
 const Login:React.FC = function () {
     const LoginInfo:LoginInfoType = {
@@ -24,9 +24,6 @@ const Login:React.FC = function () {
             message: res.data.message,
             description:res.data.code == "200" ? "please fill the applytable.":'Please check your username or password',
             icon: res.data.code == "200" ? <SmileOutlined style={{ color: '#108ee9' }} /> : <FrownOutlined style={{color:"red"}} />,
-            onClick: () => {
-                console.log('Notification Clicked!');
-            },
         });
         if(res.data.code == "200")
         {

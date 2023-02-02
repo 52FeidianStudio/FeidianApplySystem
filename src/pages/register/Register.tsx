@@ -10,7 +10,7 @@ import {
 } from "@ant-design/icons";
 import React,{useState} from "react";
 import LogoUrl from "../../assets/logo.png"
-import apis from "../../network/api";
+import apis from "../../network/apis";
 import {useNavigate} from "react-router-dom";
 const Register:React.FC = function () {
     const RegisterInfo = {
@@ -32,9 +32,6 @@ const Register:React.FC = function () {
             description:
                 'Please check your username or password',
             icon: res.data.code == "200" ? <SmileOutlined style={{ color: '#108ee9' }} /> : <FrownOutlined style={{color:"red"}} />,
-            onClick: () => {
-                console.log('Notification Clicked!');
-            },
         });
         if (res.data.code == "200")
         {

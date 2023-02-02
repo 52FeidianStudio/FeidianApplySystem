@@ -1,5 +1,5 @@
 import "./ApplyTable.less"
-import apis from "../../network/api"
+import apis from "../../network/apis"
 import {
     Button,
     Form,
@@ -10,6 +10,7 @@ import {
 import {FrownOutlined, PlusOutlined, SmileOutlined} from '@ant-design/icons';
 import React from 'react';
 import logoUrl from "../../assets/logo_text.png";
+import {UserInfotype} from "../../type/common";
 const { Option } = Select;
 const formItemLayout = {
     labelCol: {
@@ -37,7 +38,7 @@ const tailFormItemLayout = {
 const App: React.FC = () => {
     const [form] = Form.useForm();
     const token = localStorage.getItem('token');
-    const onFinish = async (values: any) => {
+    const onFinish = async (values: UserInfotype) => {
         console.log(values);
         let res = await apis.SendApplication(values);
         notification.open({

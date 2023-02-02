@@ -3,6 +3,7 @@ import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import ApplyTable from "../pages/ApplyTable/ApplyTable";
 import ChangePassword from "../pages/ChangePassword/ChangePassword";
+import AdminHome from "../pages/Admin/Home";
 import {RouteObject} from "../type/route";
 export const rootRouter: RouteObject[] = [
     {
@@ -47,11 +48,11 @@ export const rootRouter: RouteObject[] = [
     },
     {
         path: "/admin_home",
-        element: <ChangePassword />,
+        element: <AdminHome />,
         meta: {
             requiresAuth: false,
-            title: "修改密码",
-            key: "changepasswird"
+            title: "管理员后台",
+            key: "adminhome"
         }
     },
 ];
