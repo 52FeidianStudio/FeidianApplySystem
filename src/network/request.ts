@@ -11,7 +11,7 @@ export default function request(config:any) {
   })
   axios.interceptors.response.use(
     response => {
-      if (response.data.errno === 999) {
+      if (response.data.code === 500) {
         console.log("token过期");
       }
       return response;

@@ -1,5 +1,5 @@
 import request from "./request";
-import type {LoginInfoType,RegisterInfoType} from "../type/common";
+import type {LoginInfoType,RegisterInfoType,UserInfotype,NewPasswordType} from "../type/common";
 
 const apis = {
     //用户登录接口
@@ -17,7 +17,7 @@ const apis = {
             data:data
         })
     },
-    SendApplication(data:any)
+    SendApplication(data:UserInfotype)
     {
         return request({
             url:"/user",
@@ -31,7 +31,7 @@ const apis = {
             method:"GET"
         })
     },
-    ChangePassword(data:any){
+    ChangePassword(data:NewPasswordType){
         return request({
             url:`/verification/email`,
             method:"POST",
@@ -50,6 +50,14 @@ const apis = {
         return request({
             url:"/admin/grade",
             method:"GET"
+        })
+    },
+    SendEmail(data:any)
+    {
+        return request({
+            url:"/admin/review",
+            method:"POST",
+            data:data
         })
     }
 };

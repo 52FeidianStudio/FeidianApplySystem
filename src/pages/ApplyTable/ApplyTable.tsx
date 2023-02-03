@@ -9,8 +9,9 @@ import {
 } from 'antd';
 import {FrownOutlined, PlusOutlined, SmileOutlined} from '@ant-design/icons';
 import React from 'react';
-import logoUrl from "../../assets/logo_text.png";
+import logoUrl from "../../assets/logo.png";
 import {UserInfotype} from "../../type/common";
+import {useNavigate} from "react-router-dom";
 const { Option } = Select;
 const formItemLayout = {
     labelCol: {
@@ -38,24 +39,29 @@ const tailFormItemLayout = {
 const App: React.FC = () => {
     const [form] = Form.useForm();
     const token = localStorage.getItem('token');
+    const navigate = useNavigate();
     const onFinish = async (values: UserInfotype) => {
-        console.log(values);
         let res = await apis.SendApplication(values);
         notification.open({
-            message: res.data.message == "修改成功" ? "申请提交成功，面试时间请关注群内信息" : "提交失败，请联系负责人",
+            message: res.data.message == "修改成功" ? "申请提交成功" : "提交失败，请联系负责人",
             description:
                 'Please check your information',
             icon: res.data.code == "200" ? <SmileOutlined style={{ color: '#108ee9' }} /> : <FrownOutlined style={{color:"red"}} />,
             placement:"top"
         });
+        if (res.data.code == "200")
+        {
+            navigate("/apply_result")
+        }
     };
 
 
 
     return (
         <div className="apply-table-content margin-center">
-            <div className="feidian-logo margin-center flex-center">
+            <div className="feidian-logo margin-center">
                 <img alt="feidianlogo" src={logoUrl}/>
+                <div className="title">沸点报名系统</div>
             </div>
             <div className="apply-form">
                 <Form
@@ -64,15 +70,22 @@ const App: React.FC = () => {
                     name="apply"
                     onFinish={onFinish}
                     initialValues={{ prefix: '86' }}
-                    style={{ width:"80%",marginTop:"50px"}}
+                    style={{ width:"100%",marginTop:"50px",marginLeft:"-110px"}}
                     scrollToFirstError
                 >
+                    <Form.Item label="上传照片" valuePropName="fileList">
+                        <Upload action="http://101.43.181.13:8888/user/img" headers={{token:`${token}`}} listType="picture-card">
+                            <div>
+                                <PlusOutlined />
+                                <div>上传你的照片</div>
+                            </div>
+                        </Upload>
+                    </Form.Item>
                     <Form.Item
                         name="name"
                         label="姓名"
                         tooltip="What do you want others to call you?"
                         rules={[{ required: true, message: '请输入你的姓名！', whitespace: true }]}
-
                     >
                         <Input maxLength={30}/>
                     </Form.Item>
@@ -185,14 +198,6 @@ const App: React.FC = () => {
                         <Input.TextArea showCount maxLength={300} />
                     </Form.Item>
 
-                    <Form.Item label="Upload" valuePropName="fileList">
-                        <Upload action="http://101.43.181.13:8888/user/img" headers={{token:`${token}`}} listType="picture-card">
-                            <div>
-                                <PlusOutlined />
-                                <div>上传你的照片</div>
-                            </div>
-                        </Upload>
-                    </Form.Item>
 
                     <Form.Item {...tailFormItemLayout}>
                         <Button style={{marginBottom:"50px" }} type="primary" htmlType="submit">

@@ -4,6 +4,7 @@ import Register from "../pages/register/Register";
 import ApplyTable from "../pages/ApplyTable/ApplyTable";
 import ChangePassword from "../pages/ChangePassword/ChangePassword";
 import AdminHome from "../pages/Admin/Home";
+import Result from "../pages/Result/Result"
 import {RouteObject} from "../type/route";
 export const rootRouter: RouteObject[] = [
     {
@@ -35,6 +36,15 @@ export const rootRouter: RouteObject[] = [
             requiresAuth: false,
             title: "报名",
             key: "applytable"
+        }
+    },
+    {
+        path: "/apply_result",
+        element: <Result />,
+        meta: {
+            requiresAuth: false,
+            title: "提交结果",
+            key: "applyresult"
         }
     },
     {
