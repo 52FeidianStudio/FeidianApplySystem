@@ -177,10 +177,10 @@ const App: React.FC = () => {
                         rules={[{ required: true, message: '请选择你要加入的部门!' }]}
                     >
                         <Select placeholder="select your gender">
-                            <Option value="fe">大前端组</Option>
-                            <Option value="ios">JAVA组</Option>
-                            <Option value="java">IOS组</Option>
-                            <Option value="safe">信安组</Option>
+                            <Option value="大前端组">大前端组</Option>
+                            <Option value="JAVA组">JAVA组</Option>
+                            <Option value="IOS组">IOS组</Option>
+                            <Option value="信安组">信安组</Option>
                         </Select>
                     </Form.Item>
                     <Form.Item
