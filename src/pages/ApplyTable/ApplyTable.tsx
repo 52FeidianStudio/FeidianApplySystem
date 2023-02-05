@@ -51,18 +51,26 @@ const ApplyTable: React.FC = () => {
     }, [])
     //申请提交
     const onFinish = async (values: UserInfotype) => {
-        let grade = values.studentID?.slice(0, 4);
-        values.grade = grade;
-        let res = await apis.SendApplication(values);
-        notification.open({
-            message: res.data.message == "修改成功" ? "申请提交成功" : "提交失败，请联系负责人",
-            description:
-                'Please check your information',
-            icon: res.data.code == "200" ? <SmileOutlined style={{ color: '#108ee9' }} /> : <FrownOutlined style={{ color: "red" }} />,
-            placement: "top"
-        });
-        if (res.data.code == "200") {
-            navigate("/apply_result")
+        if (values.studentID?.slice(0, 2) != "20")
+        {
+            message.error("请输入正确的学号")
+        }
+        else
+        {
+
+            let grade = values.studentID?.slice(0, 4);
+            values.grade = grade;
+            let res = await apis.SendApplication(values);
+            notification.open({
+                message: res.data.message == "修改成功" ? "申请提交成功" : "提交失败，请联系负责人",
+                description:
+                    'Please check your information',
+                icon: res.data.code == "200" ? <SmileOutlined style={{ color: '#108ee9' }} /> : <FrownOutlined style={{ color: "red" }} />,
+                placement: "top"
+            });
+            if (res.data.code == "200") {
+                navigate("/apply_result")
+            }
         }
     }
     //图片大小限制
