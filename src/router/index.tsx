@@ -1,15 +1,22 @@
 import { Navigate, useRoutes } from "react-router-dom";
-import Login from "../pages/login/Login";
+import Login from "../pages/Login/Login";
 import Register from "../pages/register/Register";
 import ApplyTable from "../pages/ApplyTable/ApplyTable";
 import ChangePassword from "../pages/ChangePassword/ChangePassword";
 import AdminHome from "../pages/Admin/Home";
-import Result from "../pages/Result/Result"
-import {RouteObject} from "../type/route";
+import ApplyResult from "../pages/ApplyResult/ApplyResult";
+import PassResult from "../pages/PassResult/PassResult";
+import ErrorPage from "../pages/ErrorPage/404"
+import {RouteObject} from "./route";
 export const rootRouter: RouteObject[] = [
     {
         path: "/",
-        element: <Navigate to="/login" />
+        element: <Login />,
+        meta: {
+            requiresAuth: false,
+            title: "登录",
+            key: "login"
+        }
     },
     {
         path: "/login",
@@ -40,10 +47,19 @@ export const rootRouter: RouteObject[] = [
     },
     {
         path: "/apply_result",
-        element: <Result />,
+        element: <ApplyResult />,
         meta: {
             requiresAuth: false,
             title: "提交结果",
+            key: "applyresult"
+        }
+    },
+    {
+        path: "/pass_result",
+        element: <PassResult />,
+        meta: {
+            requiresAuth: false,
+            title: "最终结果",
             key: "applyresult"
         }
     },
@@ -65,6 +81,19 @@ export const rootRouter: RouteObject[] = [
             key: "adminhome"
         }
     },
+    {
+        path: "/404",
+        element: <ErrorPage />,
+        meta: {
+            requiresAuth: false,
+            title: "404页面",
+            key: "errorpage"
+        }
+    },
+    {
+        path:"*",
+        element:<Navigate to="/404"/>
+    }
 ];
 const Router = () => {
     // @ts-ignore

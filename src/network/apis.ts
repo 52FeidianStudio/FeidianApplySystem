@@ -38,6 +38,13 @@ const apis = {
             data:data
         })
     },
+    //获取用户个人信息
+    GetSingleApplyinfo(){
+        return request({
+            url:"/user",
+            method:"GET"
+        })
+    },
     //用户管理相关接口
     GetAllApplyInfo(data:any){
         return request({
@@ -58,6 +65,12 @@ const apis = {
             url:"/admin/review",
             method:"POST",
             data:data
+        })
+    },
+    GetMailTemplate(){
+        return request({
+            url:"/mail/templates",
+            method:"GET"
         })
     }
 };

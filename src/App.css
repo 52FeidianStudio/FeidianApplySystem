@@ -4,9 +4,10 @@
 }
 body{
   width: 100vw;
-  min-height: 100vh;
+  min-height: 100vh - 2px;
   background: #4fa0f4;
   overflow-x:hidden;
+  border: 1px solid rgba(255, 255, 255, 0);
 }
 #root {
   max-width: 1080px;

@@ -73,10 +73,10 @@ const Register:React.FC = function () {
             <div className="register-box">
                 <img className="logo" src={LogoUrl} alt="logo"/>
                 <div className="input-content">
-                    <Input maxLength={20} size="large" placeholder="Username" prefix={<UserOutlined />} name="username" value={form.username} onChange={handleChange}/>
+                    <Input maxLength={20} size="large" placeholder="用户名" prefix={<UserOutlined />} name="username" value={form.username} onChange={handleChange}/>
                     <Input maxLength={30}
                            style={{marginTop:"20px"}}
-                           size="large" placeholder="Email"
+                           size="large" placeholder="邮箱"
                            prefix={<MailOutlined />} name="email"
                            value={form.email}
                            onChange={handleChange}
@@ -86,16 +86,16 @@ const Register:React.FC = function () {
                         style={{marginTop:"20px"}}
                         size="large"
                         prefix={<PaperClipOutlined />}
-                        placeholder="Password"
+                        placeholder="密码"
                         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                         name="password" value={form.password} onChange={handleChange}
                         maxLength={250}
                     />
                 </div>
-                <Button onClick={RegisterMethod} style={{margin:"20px 50px 20px 50px",width:'calc(100% - 100px)'}} type="primary" size="large">Register</Button>
+                <Button onClick={RegisterMethod} style={{margin:"20px 50px 20px 50px",width:'calc(100% - 100px)'}} type="primary" size="large">注册</Button>
                 <div onClick={toLogin} className="tips">已有账号点此登录</div>
             </div>
         </div>
     );
 }
-export default Register;
+export default React.memo(Register);
