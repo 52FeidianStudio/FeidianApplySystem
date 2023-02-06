@@ -89,8 +89,10 @@ const ApplyTable: React.FC = () => {
     return (
         <div className="apply-table-content margin-center">
             <div className="feidian-logo margin-center">
-                <img alt="feidianlogo" src={logoUrl} />
-                <div className="title">沸点报名系统</div>
+                <div className="feidian-logo-content">
+                    <img alt="feidianlogo" src={logoUrl} />
+                    <div className="title">沸点报名系统</div>
+                </div>
             </div>
             <div className="apply-form">
                 <Form
@@ -100,8 +102,9 @@ const ApplyTable: React.FC = () => {
                     onFinish={onFinish}
                     // 初始化表单数据
                     initialValues={{}}
-                    style={{ width: "100%", marginTop: "50px", marginLeft: "-110px" }}
+                    style={{ width: "100%", marginTop: "50px"}}
                     scrollToFirstError
+                    className="apply-form-container"
                 >
                     <Form.Item label="上传照片" valuePropName="fileList">
                         <Upload action="http://101.43.181.13:8888/user/img"

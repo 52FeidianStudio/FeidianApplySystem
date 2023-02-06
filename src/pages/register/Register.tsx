@@ -92,7 +92,7 @@ const Register:React.FC = function () {
                         maxLength={250}
                     />
                 </div>
-                <Button onClick={RegisterMethod} style={{margin:"20px 50px 20px 50px",width:'calc(100% - 100px)'}} type="primary" size="large">注册</Button>
+                <Button onClick={RegisterMethod} className="register-button"  type="primary" size="large">注册</Button>
                 <div onClick={toLogin} className="tips">已有账号点此登录</div>
             </div>
         </div>

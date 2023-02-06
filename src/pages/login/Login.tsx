@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import './Login.less'
 import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone, PaperClipOutlined, SmileOutlined, FrownOutlined } from '@ant-design/icons';
 import { Input, Button, notification } from 'antd';
-import LogoUrl from "../../assets/logo.png";
+import LogoUrl from "../../assets/logo.png"
 import type { LoginInfoType } from "../../type/common";
 import apis from "../../network/apis";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +69,7 @@ const Login: React.FC = function () {
                         maxLength={250}
                     />
                 </div>
-                <Button onClick={LoginMethod} style={{ margin: "20px 50px 20px 50px", width: 'calc(100% - 100px)' }} type="primary" size="large">登录</Button>
+                <Button onClick={LoginMethod} className="login-button" type="primary" size="large">登录</Button>
                 <div className="tips">
                     <div onClick={toRegister} className="tips-register">点此注册</div>
                     <div onClick={toChangePassword} className="tips-forget">忘记密码</div>
