@@ -112,9 +112,11 @@ const AdminHome: React.FC = () => {
                 <div className="header-content">
                     <img alt="logo" src={logoUrl} />
                     <div className="header-title">报名系统后台</div>
-                    <div className="header-button"><Button type="primary" onClick={() => { SendEmail('pass') }}>通过</Button></div>
-                    <div style={{ right: "62px" }} className="header-button"><Button danger onClick={() => { SendEmail('fail') }}>未过</Button></div>
-                    <div className="header-switch"><Switch checkedChildren="全选" unCheckedChildren="无" defaultChecked={allSelectState} onChange={AllSelect} /></div>
+                    <div className="header-button-container">
+                        <div className="header-button"><Button type="primary" onClick={() => { SendEmail('pass') }}>通过</Button></div>
+                        <div style={{ right: "62px" }} className="header-button"><Button danger onClick={() => { SendEmail('fail') }}>未过</Button></div>
+                        <div className="header-switch"><Switch checkedChildren="全选" unCheckedChildren="无" defaultChecked={allSelectState} onChange={AllSelect} /></div>
+                    </div>
                 </div>
                 <div className="tabs-content">
                     <Tabs items={tabs} onChange={ChangeTabs} />
@@ -140,18 +142,18 @@ const AdminHome: React.FC = () => {
                             >
                                 <List.Item.Meta
                                     avatar={<Avatar src={item.imgURL} />}
-                                    title={<div>{item.name}</div>}
+                                    title={<div className="name-title">{item.name}</div>}
                                     description={<div className="description">{item.selfIntroduction}</div>}
                                 />
-                                <div>{item.department}</div>
+                                <div className="department-title">{item.department}</div>
                             </List.Item>
                         )}
                     />
                 </div>
             </div>
             <Modal title="Application" open={open} onOk={onClose} onCancel={onClose} width={755}>
-                <div style={{ padding: "20px 50px" }}>
-                    <p className="info-title" style={{ marginBottom: 24 }}>
+                <div className="application-title">
+                    <p className="info-title" style={{ marginBottom: 4 }}>
                         User Profile
                     </p>
                     <div style={{ margin: "10px auto" }}>

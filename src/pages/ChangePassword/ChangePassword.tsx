@@ -67,9 +67,9 @@ const Login: React.FC = function () {
                                 value={form.code}
                                 onChange={handleChange}
                                 maxLength={6}
-
+                                style={{ width:"63%" }}
                             />
-                            <Button disabled={buttonState} onClick={GetCode} size="large" style={{ color: "grey", marginLeft: "10px",width:"30%" }} > 发送验证码</Button>
+                            <Button disabled={buttonState} onClick={GetCode} className="getCode-button" size="large" style={{ color: "grey", marginLeft: "3%",width:"32%",padding:"1px" }} > 发送验证码</Button>
                         </div>
 
                     </Space>
@@ -83,7 +83,7 @@ const Login: React.FC = function () {
                         maxLength={250}
                     />
                 </div>
-                <Button onClick={ChangePasswordMethod} style={{ margin: "20px 50px 20px 50px", width: 'calc(100% - 100px)' }} type="primary" size="large">修改</Button>
+                <Button onClick={ChangePasswordMethod} className="change-button" type="primary" size="large">修改</Button>
                 <div onClick={toLogin} className="tips">点此登录</div>
             </div>
         </div>

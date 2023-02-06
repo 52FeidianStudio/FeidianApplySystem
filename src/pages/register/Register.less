@@ -1,37 +1,85 @@
-.register-content
-{
-  width: 80%;
-  height: 100vh;
-  .register-box
+@media only screen and (min-width:500px) {
+  .register-content
   {
-    width: 480px;
-    border-radius:15px;
-    background: #fff;
-    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
-    .logo{
-      width: 70px;
-      height: 70px;
-      margin: 50px calc((100% - 70px)/2);
-      margin-bottom: 10px;
-    }
-    .input-content
+    width: 80%;
+    height: 100vh;
+    .register-box
     {
-      @inputMargin:50px;
-      width: calc(100% - @inputMargin * 2);
-      height: calc(100% - @inputMargin * 2);
-      margin: 20px @inputMargin 0 @inputMargin;
-    }
-    .tips{
-      width: 100%;
-      line-height: 60px;
-      color: grey;
-      text-align: center;
-    }
-    .tips:hover
-    {
-      color: #1677ff;
+      width: 480px;
+      border-radius:15px;
+      background: #fff;
+      box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+      .logo{
+        width: 70px;
+        height: 70px;
+        margin: 50px calc((100% - 70px)/2);
+        margin-bottom: 10px;
+      }
+      .input-content
+      {
+        @inputMargin:50px;
+        width: calc(100% - @inputMargin * 2);
+        height: calc(100% - @inputMargin * 2);
+        margin: 20px @inputMargin 0 @inputMargin;
+      }
+      .tips{
+        width: 100%;
+        line-height: 60px;
+        color: grey;
+        text-align: center;
+      }
+      .tips:hover
+      {
+        color: #1677ff;
+      }
+      .register-button{
+        margin:20px 50px 20px 50px;
+        width:calc(100% - 100px);
+      }
     }
   }
 }
 
+@media only screen and (max-width:500px) {
+  .register-content
+  {
+    width: 90%;
+    height: 100vh;
+    .register-box
+    {
+      width: 480px;
+      border-radius:15px;
+      background: #fff;
+      box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+      .logo{
+        width: 60px;
+        height: 60px;
+        margin: 30px calc((100% - 70px)/2);
+        margin-bottom: 0px;
+      }
+      .input-content
+      {
+        @inputMargin:30px;
+        width: calc(100% - @inputMargin * 2);
+        height: calc(100% - @inputMargin * 2);
+        margin: 20px @inputMargin 0 @inputMargin;
+      }
+      .tips{
+        width: 100%;
+        line-height: 60px;
+        color: grey;
+        text-align: center;
+      }
+      .tips:hover
+      {
+        color: #1677ff;
+      }
+      .register-button{
+        margin:20px 50px 0px 30px;
+        width:calc(100% - 60px);
+      }
+    }
+  }
+}
 
+/*style={{margin:"20px 50px 0px 30px",width:'calc(100% - 60px)'}}*/
