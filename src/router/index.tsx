@@ -1,5 +1,5 @@
 import { Navigate, useRoutes } from "react-router-dom";
-import Login from "../pages/login/Login";
+import Login from "../pages/Login/Login";
 import Register from "../pages/register/Register";
 import ApplyTable from "../pages/ApplyTable/ApplyTable";
 import ChangePassword from "../pages/ChangePassword/ChangePassword";
