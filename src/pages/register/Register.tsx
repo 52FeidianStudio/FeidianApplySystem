@@ -12,7 +12,7 @@ import React,{useState} from "react";
 import LogoUrl from "../../assets/logo.png"
 import apis from "../../network/apis";
 import {useNavigate} from "react-router-dom";
-import {useCheckEmail} from "../../hooks/useCheckEmail"
+import {checkEmail} from "../../utils/CheckEmail"
 const Register:React.FC = function () {
     const RegisterInfo = {
         username:'',
@@ -37,7 +37,7 @@ const Register:React.FC = function () {
         else
         {
             //邮箱合法性校验
-            if(useCheckEmail(form.email))
+            if(checkEmail(form.email))
             {
 
                     await apis.Register(form);

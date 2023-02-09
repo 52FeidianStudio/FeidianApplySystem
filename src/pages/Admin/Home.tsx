@@ -51,12 +51,11 @@ const AdminHome: React.FC = () => {
     //用户信息弹窗
     const [open, setOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const showDrawer = async (newIndex: number) => {
+    const showUserInfoModal = async (newIndex: number) => {
         await setCurrentIndex(newIndex);
         setOpen(true);
-
     };
-    const onClose = () => {
+    const onUserInfoClose = () => {
         setOpen(false);
     };
     const [isReviewOpen, setIsReviewOpen] = useState(false);
@@ -146,7 +145,7 @@ const AdminHome: React.FC = () => {
                             <List.Item
                                 actions={[<a key="list-loadmore-more" onClick={() =>
                                 {
-                                    showDrawer(index);
+                                    showUserInfoModal(index);
                                 }
                                 }>more</a>,
                                     <Switch
@@ -179,7 +178,7 @@ const AdminHome: React.FC = () => {
                  <p>选择审核的结果</p>
             </Modal>
             {/*用户信息弹窗*/}
-            <Modal title="Application" open={open} onOk={onClose} onCancel={onClose} width={800} style={{ top: 30 }}>
+            <Modal title="Application" open={open} onOk={onUserInfoClose} onCancel={onUserInfoClose} width={800} style={{ top: 30 }}>
                 <div className="application-title">
                     <p className="info-title" style={{ marginBottom: 4 }}>
                         User Profile
