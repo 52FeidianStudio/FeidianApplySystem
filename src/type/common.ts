@@ -14,6 +14,8 @@ export interface NewPasswordType  {
     code:string,
 }
 export interface UserInfotype {
+    loading: boolean;
+    selected: boolean;
     username?:string,
     studentID?:string,
     grade?:string,

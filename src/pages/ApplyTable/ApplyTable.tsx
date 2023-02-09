@@ -6,7 +6,7 @@ import {
     Input, notification,
     Select,
     Upload,
-    message
+    message, Alert
 } from 'antd';
 import { FrownOutlined, PlusOutlined, SmileOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
@@ -14,7 +14,6 @@ import logoUrl from "../../assets/logo.png";
 import { UserInfotype } from "../../type/common";
 import { useNavigate } from "react-router-dom";
 const { Option } = Select;
-
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
@@ -42,35 +41,20 @@ const ApplyTable: React.FC = () => {
     const [form] = Form.useForm();
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
-    let [preForm, SetPreForm] = useState<UserInfotype>({});
+    let [preForm, SetPreForm] = useState<UserInfotype>();
     useEffect(() => {
         if (!localStorage.getItem('token')) {
             message.error("请先登录")
             navigate('/')
         }
     }, [])
-    //申请提交
-    const onFinish = async (values: UserInfotype) => {
-        if (values.studentID?.slice(0, 2) != "20")
+    //判断图片是否上传
+    let imgUploadState = false;
+    const uploadCallBack = (e:any) =>
+    {
+        if(e.fileList.length >= 1)
         {
-            message.error("请输入正确的学号")
-        }
-        else
-        {
-
-            let grade = values.studentID?.slice(0, 4);
-            values.grade = grade;
-            let res = await apis.SendApplication(values);
-            notification.open({
-                message: res.data.message == "修改成功" ? "申请提交成功" : "提交失败，请联系负责人",
-                description:
-                    'Please check your information',
-                icon: res.data.code == "200" ? <SmileOutlined style={{ color: '#108ee9' }} /> : <FrownOutlined style={{ color: "red" }} />,
-                placement: "top"
-            });
-            if (res.data.code == "200") {
-                navigate("/apply_result")
-            }
+            imgUploadState = true;
         }
     }
     //图片大小限制
@@ -85,6 +69,26 @@ const ApplyTable: React.FC = () => {
         }
         return isJpgOrPng && isLt2M;
     };
+    //申请提交
+    const onFinish = async (values: UserInfotype) => {
+        if (values.studentID?.slice(0, 2) != "20")
+        {
+            message.error("请输入正确的学号")
+        }
+        else if(!imgUploadState)
+        {
+            message.error("请上传图片")
+        }
+        else
+        {
+
+            let grade = values.studentID?.slice(0, 4);
+            values.grade = grade;
+            let res = await apis.SendApplication(values);
+            message.info("申请提交成功！")
+            navigate("/apply_result")
+        }
+    }
 
     return (
         <div className="apply-table-content margin-center">
@@ -95,6 +99,13 @@ const ApplyTable: React.FC = () => {
                 </div>
             </div>
             <div className="apply-form">
+                <Alert
+                    message="Warning"
+                    description="请认真填写所有信息，并上传本人图片，信息不全或无证件照，均视为无效申请！"
+                    showIcon
+                    closable
+                    style={{margin:"6vh 5vw 0 5vw"}}
+                />
                 <Form
                     {...formItemLayout}
                     form={form}
@@ -111,6 +122,8 @@ const ApplyTable: React.FC = () => {
                             headers={{ token: `${token}` }}
                             listType="picture-card"
                             accept=".png,.jpg,.jpeg"
+                            onChange={uploadCallBack}
+                            maxCount={1}
                             beforeUpload={beforeUpload}>
                             <div>
                                 <PlusOutlined />

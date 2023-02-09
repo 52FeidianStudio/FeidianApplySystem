@@ -1,7 +1,6 @@
 import "./Home.less"
 import React, { useEffect, useState } from 'react';
-import { Avatar, List, Tabs, Switch, Row, Col, Divider, Button, Modal, message } from 'antd';
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { Avatar, List, Tabs, Switch, Row, Col, Divider, Button, Modal, message} from 'antd';
 import { UserInfotype, TabsType } from "../../type/common";
 import apis from "../../network/apis";
 import logoUrl from "../../assets/logo.png"
@@ -20,12 +19,6 @@ const AdminHome: React.FC = () => {
     const [list, setList] = useState<UserInfotype[]>([]);
     const [tabs, setTabs] = useState<TabsType[]>([]);
     const navigate = useNavigate()
-    //标签栏相关
-    const ChangeTabs = (key: string) => {
-        apis.GetAllApplyInfo({ grade: key }).then((res) => {
-            setList(res.data.data.users);
-        });
-    };
     //数据初始化
     useEffect(() => {
         if (!localStorage.getItem('token')) {
@@ -33,7 +26,6 @@ const AdminHome: React.FC = () => {
             navigate('/')
         }
         apis.GetAllGrade().then((res) => {
-
             let grades = res.data.data.grade;
             const newTabs: any[] = [];
             grades.map((item: any) => {
@@ -49,10 +41,13 @@ const AdminHome: React.FC = () => {
             });
 
         })
-
-
     }, []);
-
+    //标签栏相关
+    const ChangeTabs = (key: string) => {
+        apis.GetAllApplyInfo({ grade: key }).then((res) => {
+            setList(res.data.data.users);
+        });
+    };
     //用户信息弹窗
     const [open, setOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -64,10 +59,18 @@ const AdminHome: React.FC = () => {
     const onClose = () => {
         setOpen(false);
     };
+    const [isReviewOpen, setIsReviewOpen] = useState(false);
+    const showReviewModal = () => {
+        setIsReviewOpen(!isReviewOpen);
+    };
     //邮件发送
     const [allSelectState, setAllSelectState] = useState(false);
     const AllSelect = (value: boolean) => {
         setAllSelectState(value);
+        list.map((item)=>{
+            item.selected = value;
+        })
+        setList(list);
     }
     const SingleSelect = (value: boolean, index: number) => {
         list[index].selectState = value;
@@ -85,23 +88,37 @@ const AdminHome: React.FC = () => {
             }
         })
         message.info("邮件发送中....")
-        if (allSelectState) {
-            list.map(async (item) => {
-                let res = await apis.SendEmail({
+        //邮件发送
+        function send(item:UserInfotype)
+        {
+            //判断是否已经审核过，避免重复发送邮件
+            if(item.status == "not reviewed")
+            {
+                item.loading = true;
+                setList([...list]);
+                apis.SendEmail({
                     "username": item.username,
                     "status": type == "pass" ? "pass" : "out",
                     "message": type == "pass" ? `${item.name}同学` + passMessage : `${item.name}同学` + outMessage
+                }).then((res)=>{
+                    if(res.data.message == "审核成功")
+                    {
+                        item.loading = false;
+                        setList([...list]);
+                    }
                 });
+            }
+        }
+        //判断是全部发送还是部分发送
+        if (allSelectState) {
+            list.map(async (item) => {
+                 send(item);
             })
         }
         else {
-            list.map(async (item) => {
+            list.map((item) => {
                 if (item.selectState) {
-                    let res = await apis.SendEmail({
-                        "username": item.username,
-                        "status": type == "pass" ? "pass" : "out",
-                        "message": type == "pass" ? `${item.name}同学` + passMessage : `${item.name}同学` + outMessage
-                    });
+                  send(item);
                 }
             })
         }
@@ -113,8 +130,8 @@ const AdminHome: React.FC = () => {
                     <img alt="logo" src={logoUrl} />
                     <div className="header-title">报名系统后台</div>
                     <div className="header-button-container">
-                        <div className="header-button"><Button type="primary" onClick={() => { SendEmail('pass') }}>通过</Button></div>
-                        <div style={{ right: "62px" }} className="header-button"><Button danger onClick={() => { SendEmail('fail') }}>未过</Button></div>
+                        <div className="header-button"><Button type="primary" onClick={showReviewModal}>审核</Button></div>
+                        <div style={{ right: "58px" }} className="header-button"><Button  onClick={() => { localStorage.setItem("token",'');navigate("/")}}>退出</Button></div>
                         <div className="header-switch"><Switch checkedChildren="全选" unCheckedChildren="无" defaultChecked={allSelectState} onChange={AllSelect} /></div>
                     </div>
                 </div>
@@ -123,17 +140,18 @@ const AdminHome: React.FC = () => {
                 </div>
                 <div className="list-content">
                     <List
-                        className="demo-loadmore-list"
                         itemLayout="horizontal"
                         dataSource={list}
                         renderItem={(item, index) => (
                             <List.Item
-                                actions={[<a key="list-loadmore-more" onClick={() => {
+                                actions={[<a key="list-loadmore-more" onClick={() =>
+                                {
                                     showDrawer(index);
                                 }
-                                }>more</a>, <Switch
-                                    checkedChildren={<CheckOutlined />}
-                                    unCheckedChildren={<CloseOutlined />}
+                                }>more</a>,
+                                    <Switch
+                                    checked={item.selected}
+                                    loading={item.loading}
                                     size="small"
                                     onChange={(value) => {
                                         SingleSelect(value, index);
@@ -151,7 +169,17 @@ const AdminHome: React.FC = () => {
                     />
                 </div>
             </div>
-            <Modal title="Application" open={open} onOk={onClose} onCancel={onClose} width={755}>
+            {/*审核弹窗*/}
+            <Modal title="审核结果" open={isReviewOpen}
+                   onOk={showReviewModal}
+                   onCancel={showReviewModal}
+                   footer={[<Button onClick={() => {showReviewModal(),SendEmail('fail')}} danger>淘汰</Button>,
+                       <Button onClick={() => {showReviewModal(),SendEmail('pass') }} type="primary">通过</Button>]}
+            >
+                 <p>选择审核的结果</p>
+            </Modal>
+            {/*用户信息弹窗*/}
+            <Modal title="Application" open={open} onOk={onClose} onCancel={onClose} width={800} style={{ top: 30 }}>
                 <div className="application-title">
                     <p className="info-title" style={{ marginBottom: 4 }}>
                         User Profile

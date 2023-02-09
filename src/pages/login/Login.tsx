@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import './Login.less'
 import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone, PaperClipOutlined, SmileOutlined, FrownOutlined } from '@ant-design/icons';
-import { Input, Button, notification } from 'antd';
+import {Input, Button, notification, message} from 'antd';
 import LogoUrl from "../../assets/logo.png"
 import type { LoginInfoType } from "../../type/common";
 import apis from "../../network/apis";
@@ -19,12 +19,7 @@ const Login: React.FC = function () {
     const navigate = useNavigate();
     const LoginMethod = async () => {
         let res = await apis.Login(form);
-        notification.open({
-            message: res.data.message,
-            description: res.data.code == "200" ? "please fill the applytable." : 'Please check your username or password',
-            icon: res.data.code == "200" ? <SmileOutlined style={{ color: '#108ee9' }} /> : <FrownOutlined style={{ color: "red" }} />,
-        });
-        if (res.data.code == "200") {
+         message.info("登录成功");
             localStorage.setItem('token', res.data.data.token);
             if (res.data.data.role == "user") {
                 let userInfo;
@@ -45,7 +40,7 @@ const Login: React.FC = function () {
                 navigate("/admin_home")
             }
         }
-    }
+
     //页面跳转函数
     const toRegister = () => {
         navigate("/register")

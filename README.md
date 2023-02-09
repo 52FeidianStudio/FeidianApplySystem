@@ -39,16 +39,23 @@ npm run build
 
 - 适配手机端布局
 
+- 审核添加确认判断
+
+- 完善后台邮件发送状态，发送中添加loading动画
   
 
   ### TODO
-
-  - 完善后台邮件发送状态，发送中添加loading动画
   - 完善后台数据切换动画
-  - 审核添加确认判断
+  - 用户数据区分 ,根据不同组别
+  - 后台数据分页
   - 已审核的用户与未审核用户区分（默认不显示已经审核的用户，手动选择）
 
   
 
   ## 页面截图
 
+![login](https://apply.ifeidian.cc/img/1.png)
+![apply](https://apply.ifeidian.cc/img/2.png)
+![result](https://apply.ifeidian.cc/img/3.png)
+![admin](https://apply.ifeidian.cc/img/4.png)
+![user_information](https://apply.ifeidian.cc/img/5.png)

@@ -36,23 +36,15 @@ const Register:React.FC = function () {
         }
         else
         {
+            //邮箱合法性校验
             if(useCheckEmail(form.email))
             {
 
-                let res = await apis.Register(form);
-                notification.open({
-                    message: res.data.message,
-                    description:
-                        'Please check your username or password',
-                    icon: res.data.code == "200" ? <SmileOutlined style={{ color: '#108ee9' }} /> : <FrownOutlined style={{color:"red"}} />,
-                });
-                if (res.data.code == "200")
-                {
+                    await apis.Register(form);
                     messageApi.info('注册成功，请登录');
                     setTimeout(()=>{
                         navigate("/login")
                     },1000)
-                }
             }
             else
             {

@@ -23,8 +23,7 @@ instance.interceptors.response.use(
       {
           message.error(response.data.message+",请重新登录");
           localStorage.setItem("token","");
-          //@ts-ignore
-          location.reload("/");
+          location.reload();
       }
       else{
         message.error(response.data.message);
