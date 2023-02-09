@@ -11,7 +11,7 @@ import {
 import { FrownOutlined, PlusOutlined, SmileOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import logoUrl from "../../assets/logo.png";
-import { UserInfotype } from "../../type/common";
+import { UserInfotype } from "../../types/common";
 import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 const formItemLayout = {

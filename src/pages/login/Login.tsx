@@ -3,7 +3,7 @@ import './Login.less'
 import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone, PaperClipOutlined, SmileOutlined, FrownOutlined } from '@ant-design/icons';
 import {Input, Button, notification, message} from 'antd';
 import LogoUrl from "../../assets/logo.png"
-import type { LoginInfoType } from "../../type/common";
+import type { LoginInfoType } from "../../types/common";
 import apis from "../../network/apis";
 import { useNavigate } from "react-router-dom";
 const Login: React.FC = function () {

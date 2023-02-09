@@ -1,7 +1,7 @@
 import "./Home.less"
 import React, { useEffect, useState } from 'react';
 import { Avatar, List, Tabs, Switch, Row, Col, Divider, Button, Modal, message} from 'antd';
-import { UserInfotype, TabsType } from "../../type/common";
+import { UserInfotype, TabsType } from "../../types/common";
 import apis from "../../network/apis";
 import logoUrl from "../../assets/logo.png"
 import { useNavigate } from "react-router-dom";

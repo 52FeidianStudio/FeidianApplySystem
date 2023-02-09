@@ -1,5 +1,5 @@
 import request from "./request";
-import type {LoginInfoType,RegisterInfoType,UserInfotype,NewPasswordType} from "../type/common";
+import type {LoginInfoType,RegisterInfoType,UserInfotype,NewPasswordType} from "../types/common";
 
 const apis = {
     //用户登录接口

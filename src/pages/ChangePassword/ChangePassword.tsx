@@ -3,7 +3,7 @@ import './ChangePassword.less'
 import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone, PaperClipOutlined, SmileOutlined, FrownOutlined, BulbOutlined } from '@ant-design/icons';
 import { Input, Button, notification, Space, message } from 'antd';
 import LogoUrl from "../../assets/logo.png";
-import type { NewPasswordType } from "../../type/common";
+import type { NewPasswordType } from "../../types/common";
 import apis from "../../network/apis";
 import { useNavigate } from "react-router-dom";
 const Login: React.FC = function () {
