@@ -2,7 +2,7 @@ import axios from 'axios';
 import {message} from 'antd';
 export default function request(config:any) {
   const instance = axios.create({
-    baseURL: 'https://backend.ifeidian.cc',
+    baseURL: 'http://101.43.181.13:8888',
     timeout: 20000,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
