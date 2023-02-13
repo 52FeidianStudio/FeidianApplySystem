@@ -12,7 +12,8 @@ import { FrownOutlined, PlusOutlined, SmileOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import logoUrl from "../../assets/logo.png";
 import { UserInfotype } from "../../types/common";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
+import { useRequest } from 'ahooks';
 const { Option } = Select;
 const formItemLayout = {
     labelCol: {
@@ -42,6 +43,18 @@ const ApplyTable: React.FC = () => {
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
     let [preForm, SetPreForm] = useState<UserInfotype>();
+    let demo = {};
+    useRequest(apis.GetSingleApplyinfo,{
+        onSuccess:(res)=>{
+            let userInfo:UserInfotype = res.data.data;
+            if (userInfo.status != "not reviewed")
+            {
+                navigate("/pass_result");
+                message.info("当前已无法修改申请，面试结果已出！")
+            }
+            SetPreForm(res.data.data);
+        }
+    });
     useEffect(() => {
         if (!localStorage.getItem('token')) {
             message.error("请先登录")
@@ -52,7 +65,7 @@ const ApplyTable: React.FC = () => {
     let imgUploadState = false;
     const uploadCallBack = (e:any) =>
     {
-        if(e.fileList.length >= 1)
+        if(e.file.response?.message == "上传成功")
         {
             imgUploadState = true;
         }
@@ -61,13 +74,13 @@ const ApplyTable: React.FC = () => {
     const beforeUpload = (file: any) => {
         const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
         if (!isJpgOrPng) {
-            message.error('You can only upload JPG/PNG file!');
+            message.error('只能上传JPG/PNG格式的图片！');
         }
-        const isLt2M = file.size / 1024 / 1024 < 2;
-        if (!isLt2M) {
-            message.error('Image must smaller than 2MB!');
+        const isLt3M = file.size / 1024 / 1024 < 3;
+        if (!isLt3M) {
+            message.error('请上传小于3M的图片');
         }
-        return isJpgOrPng && isLt2M;
+        return isJpgOrPng && isLt3M;
     };
     //申请提交
     const onFinish = async (values: UserInfotype) => {
@@ -106,149 +119,151 @@ const ApplyTable: React.FC = () => {
                     closable
                     style={{margin:"6vh 5vw 0 5vw"}}
                 />
-                <Form
-                    {...formItemLayout}
-                    form={form}
-                    name="apply"
-                    onFinish={onFinish}
-                    // 初始化表单数据
-                    initialValues={{}}
-                    style={{ width: "100%", marginTop: "50px"}}
-                    scrollToFirstError
-                    className="apply-form-container"
-                >
-                    <Form.Item label="上传照片" valuePropName="fileList">
-                        <Upload action="http://101.43.181.13:8888/user/img"
-                            headers={{ token: `${token}` }}
-                            listType="picture-card"
-                            accept=".png,.jpg,.jpeg"
-                            onChange={uploadCallBack}
-                            maxCount={1}
-                            beforeUpload={beforeUpload}>
-                            <div>
-                                <PlusOutlined />
-                                <div>上传你的照片</div>
-                            </div>
-                        </Upload>
-                    </Form.Item>
-                    <Form.Item
-                        name="name"
-                        label="姓名"
-                        tooltip="What do you want others to call you?"
-                        rules={[{ required: true, message: '请输入你的姓名！', whitespace: true }]}
+                {preForm&&
+                    <Form
+                        {...formItemLayout}
+                        form={form}
+                        name="apply"
+                        onFinish={onFinish}
+                        // 初始化表单数据
+                        initialValues={preForm}
+                        style={{ width: "100%", marginTop: "50px"}}
+                        scrollToFirstError
+                        className="apply-form-container"
                     >
-                        <Input maxLength={30} />
-                    </Form.Item>
+                        <Form.Item label="上传照片" valuePropName="fileList">
+                            <Upload action="https://backend.ifeidian.cc/user/img"
+                                    headers={{ token: `${token}` }}
+                                    listType="picture-card"
+                                    accept=".png,.jpg,.jpeg"
+                                    onChange={uploadCallBack}
+                                    maxCount={1}
+                                    beforeUpload={beforeUpload}>
+                                <div>
+                                    <PlusOutlined />
+                                    <div>上传你的照片</div>
+                                </div>
+                            </Upload>
+                        </Form.Item>
+                        <Form.Item
+                            name="name"
+                            label="姓名"
+                            tooltip="What do you want others to call you?"
+                            rules={[{ required: true, message: '请输入你的姓名！', whitespace: true }]}
+                        >
+                            <Input maxLength={30} />
+                        </Form.Item>
 
-                    <Form.Item
-                        name="sex"
-                        label="性别"
-                        rules={[{ required: true, message: '请选择你的性别!' }]}
-                    >
-                        <Select placeholder="你是GG还是MM">
-                            <Option value="男性">男性</Option>
-                            <Option value="女性">女性</Option>
-                            <Option value="其他">其他</Option>
-                        </Select>
-                    </Form.Item>
-
-
-                    <Form.Item
-                        name="phone"
-                        label="电话号码"
-                        rules={[{ required: true, message: '请输入你的手机号!' }]}
-                    >
-                        <Input
-                            style={{ width: '100%' }} minLength={11} maxLength={15} />
-                    </Form.Item>
-
-
-                    <Form.Item
-                        name="email"
-                        label="E-mail"
-                        tooltip="邮箱用来接收面试结果，请认真填写"
-                        rules={[
-                            {
-                                type: 'email',
-                                message: '这不是有效的邮箱！',
-                            },
-                            {
-                                required: true,
-                                message: '请输入邮箱',
-                            },
-                        ]}
-                    >
-                        <Input maxLength={30} />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="studentID"
-                        label="学号"
-                        rules={[{ required: true, message: '请输入你的学号!' }]}
-                    >
-                        <Input minLength={13} maxLength={20} style={{ width: '100%' }} />
-                    </Form.Item>
+                        <Form.Item
+                            name="sex"
+                            label="性别"
+                            rules={[{ required: true, message: '请选择你的性别!' }]}
+                        >
+                            <Select placeholder="你是GG还是MM">
+                                <Option value="男性">男性</Option>
+                                <Option value="女性">女性</Option>
+                                <Option value="其他">其他</Option>
+                            </Select>
+                        </Form.Item>
 
 
-                    <Form.Item
-                        name="faculty"
-                        label="院系"
-                        rules={[{ required: true, message: '请输入你所在的学院!' }]}
-                    >
-                        <Input maxLength={20} style={{ width: '100%' }} />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="class_"
-                        label="班级"
-                        rules={[{ required: true, message: '请输入你所在的班级!' }]}
-                    >
-                        <Input maxLength={20} style={{ width: '100%' }} />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="nationality"
-                        label="民族"
-                        rules={[{ required: true, message: '请输入你的民族名称!' }]}
-                    >
-                        <Input maxLength={10} style={{ width: '100%' }} />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="department"
-                        label="申请的部门"
-                        rules={[{ required: true, message: '请选择你要加入的部门!' }]}
-                    >
-                        <Select placeholder="选择你要加入的部门">
-                            <Option value="大前端组">大前端组</Option>
-                            <Option value="JAVA组">JAVA组</Option>
-                            <Option value="IOS组">IOS组</Option>
-                            <Option value="信安组">信安组</Option>
-                        </Select>
-                    </Form.Item>
-                    <Form.Item
-                        name="reason"
-                        label="想要加入的原因"
-                        rules={[{ required: true, message: '请输入你想要加入的原因' }]}
-                    >
-                        <Input.TextArea showCount maxLength={300} />
-                    </Form.Item>
-                    <Form.Item
-                        name="selfIntroduction"
-                        label="自我介绍"
-                        rules={[{ required: true, message: '请输入你的自我介绍' }]}
-                    >
-                        <Input.TextArea showCount maxLength={300} />
-                    </Form.Item>
+                        <Form.Item
+                            name="phone"
+                            label="电话号码"
+                            rules={[{ required: true, message: '请输入你的手机号!' }]}
+                        >
+                            <Input
+                                style={{ width: '100%' }} minLength={11} maxLength={15} />
+                        </Form.Item>
 
 
-                    <Form.Item {...tailFormItemLayout}>
-                        <Button style={{ marginBottom: "50px" }} type="primary" htmlType="submit">
-                            发送申请
-                        </Button>
-                    </Form.Item>
+                        <Form.Item
+                            name="email"
+                            label="E-mail"
+                            tooltip="邮箱用来接收面试结果，请认真填写"
+                            rules={[
+                                {
+                                    type: 'email',
+                                    message: '这不是有效的邮箱！',
+                                },
+                                {
+                                    required: true,
+                                    message: '请输入邮箱',
+                                },
+                            ]}
+                        >
+                            <Input maxLength={30} />
+                        </Form.Item>
 
-                </Form>
+                        <Form.Item
+                            name="studentID"
+                            label="学号"
+                            rules={[{ required: true, message: '请输入你的学号!' }]}
+                        >
+                            <Input minLength={13} maxLength={20} style={{ width: '100%' }} />
+                        </Form.Item>
+
+
+                        <Form.Item
+                            name="faculty"
+                            label="院系"
+                            rules={[{ required: true, message: '请输入你所在的学院!' }]}
+                        >
+                            <Input maxLength={20} style={{ width: '100%' }} />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="class_"
+                            label="班级"
+                            rules={[{ required: true, message: '请输入你所在的班级!' }]}
+                        >
+                            <Input maxLength={20} style={{ width: '100%' }} />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="nationality"
+                            label="民族"
+                            rules={[{ required: true, message: '请输入你的民族名称!' }]}
+                        >
+                            <Input maxLength={10} style={{ width: '100%' }} />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="department"
+                            label="申请的部门"
+                            rules={[{ required: true, message: '请选择你要加入的部门!' }]}
+                        >
+                            <Select placeholder="选择你要加入的部门">
+                                <Option value="大前端组">大前端组</Option>
+                                <Option value="JAVA组">JAVA组</Option>
+                                <Option value="IOS组">IOS组</Option>
+                                <Option value="信安组">信安组</Option>
+                            </Select>
+                        </Form.Item>
+                        <Form.Item
+                            name="reason"
+                            label="想要加入的原因"
+                            rules={[{ required: true, message: '请输入你想要加入的原因' }]}
+                        >
+                            <Input.TextArea showCount maxLength={300} />
+                        </Form.Item>
+                        <Form.Item
+                            name="selfIntroduction"
+                            label="自我介绍"
+                            rules={[{ required: true, message: '请输入你的自我介绍' }]}
+                        >
+                            <Input.TextArea showCount maxLength={300} />
+                        </Form.Item>
+
+
+                        <Form.Item {...tailFormItemLayout}>
+                            <Button style={{ marginBottom: "50px" }} type="primary" htmlType="submit">
+                                发送申请
+                            </Button>
+                        </Form.Item>
+
+                    </Form>
+                }
             </div>
         </div>
 

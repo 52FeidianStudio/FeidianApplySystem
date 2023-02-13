@@ -5,6 +5,7 @@ import { UserInfotype, TabsType } from "../../types/common";
 import apis from "../../network/apis";
 import logoUrl from "../../assets/logo.png"
 import { useNavigate } from "react-router-dom";
+import {useRequest} from "ahooks";
 interface DescriptionItemProps {
     title: string;
     content: React.ReactNode;
@@ -20,12 +21,8 @@ const AdminHome: React.FC = () => {
     const [tabs, setTabs] = useState<TabsType[]>([]);
     const navigate = useNavigate()
     //数据初始化
-    useEffect(() => {
-        if (!localStorage.getItem('token')) {
-            message.error("请先登录")
-            navigate('/')
-        }
-        apis.GetAllGrade().then((res) => {
+    useRequest(apis.GetAllGrade,{
+        onSuccess:(res)=>{
             let grades = res.data.data.grade;
             const newTabs: any[] = [];
             grades.map((item: any) => {
@@ -33,14 +30,19 @@ const AdminHome: React.FC = () => {
                     key: item,
                     label: item
                 })
-            })
+            });
             setTabs(newTabs);
             //获取初始化申请列表
             apis.GetAllApplyInfo({ grade: grades[0] }).then((res) => {
                 setList(res.data.data.users);
             });
-
-        })
+        }
+    })
+    useEffect(() => {
+        if (!localStorage.getItem('token')) {
+            message.error("请先登录")
+            navigate('/')
+        }
     }, []);
     //标签栏相关
     const ChangeTabs = (key: string) => {
