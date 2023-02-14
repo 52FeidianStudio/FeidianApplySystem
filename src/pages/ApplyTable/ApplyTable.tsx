@@ -55,6 +55,7 @@ const ApplyTable: React.FC = () => {
                 message.info("当前已无法修改申请，面试结果已出！")
             }
             SetPreForm(res.data.data);
+
         }
     });
     useEffect(() => {
@@ -118,8 +119,7 @@ const ApplyTable: React.FC = () => {
                     message="Warning"
                     description="请认真填写所有信息，并上传本人图片，信息不全或无证件照，均视为无效申请！"
                     showIcon
-                    closable
-                    style={{margin:"6vh 5vw 0 5vw"}}
+                    style={{margin:"5vh 5vw 0 5vw"}}
                 />
                 {
                     !preForm&&
@@ -136,7 +136,7 @@ const ApplyTable: React.FC = () => {
                         onFinish={onFinish}
                         // 初始化表单数据
                         initialValues={preForm}
-                        style={{ width: "100%", marginTop: "50px"}}
+                        style={{ width: "100%", marginTop: "20px"}}
                         scrollToFirstError
                         className="apply-form-container"
                     >
