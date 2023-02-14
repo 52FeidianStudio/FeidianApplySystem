@@ -1,6 +1,6 @@
 import "./Home.less"
 import React, { useEffect, useState } from 'react';
-import { Avatar, List, Tabs, Switch, Row, Col, Divider, Button, Modal, message} from 'antd';
+import {Avatar, List, Tabs, Switch, Row, Col, Divider, Button, Modal, message, Skeleton} from 'antd';
 import { UserInfotype, TabsType } from "../../types/common";
 import apis from "../../network/apis";
 import logoUrl from "../../assets/logo.png"
@@ -23,7 +23,7 @@ const AdminHome: React.FC = () => {
     //数据初始化
     useRequest(apis.GetAllGrade,{
         onSuccess:(res)=>{
-            let grades = res.data.data.grade;
+            let grades:string[] = res.data.data.grade;
             const newTabs: any[] = [];
             grades.map((item: any) => {
                 newTabs.push({
@@ -46,6 +46,7 @@ const AdminHome: React.FC = () => {
     }, []);
     //标签栏相关
     const ChangeTabs = (key: string) => {
+        setList([]);
         apis.GetAllApplyInfo({ grade: key }).then((res) => {
             setList(res.data.data.users);
         });
@@ -139,28 +140,28 @@ const AdminHome: React.FC = () => {
                 <div className="tabs-content">
                     <Tabs items={tabs} onChange={ChangeTabs} />
                 </div>
-                <div className="list-content">
+                {
+                    <div className="list-content">
                     <List
                         itemLayout="horizontal"
                         dataSource={list}
                         renderItem={(item, index) => (
                             <List.Item
-                                actions={[<a key="list-loadmore-more" onClick={() =>
-                                {
+                                actions={[<a key="list-loadmore-more" onClick={() => {
                                     showUserInfoModal(index);
                                 }
                                 }>more</a>,
                                     <Switch
-                                    checked={item.selected}
-                                    loading={item.loading}
-                                    size="small"
-                                    onChange={(value) => {
-                                        SingleSelect(value, index);
-                                    }}
-                                />,]}
+                                        checked={item.selected}
+                                        loading={item.loading}
+                                        size="small"
+                                        onChange={(value) => {
+                                            SingleSelect(value, index);
+                                        }}
+                                    />,]}
                             >
                                 <List.Item.Meta
-                                    avatar={<Avatar src={item.imgURL} />}
+                                    avatar={<Avatar src={item.imgURL}/>}
                                     title={<div className="name-title">{item.name}</div>}
                                     description={<div className="description">{item.selfIntroduction}</div>}
                                 />
@@ -169,6 +170,7 @@ const AdminHome: React.FC = () => {
                         )}
                     />
                 </div>
+                }
             </div>
             {/*审核弹窗*/}
             <Modal title="审核结果" open={isReviewOpen}
