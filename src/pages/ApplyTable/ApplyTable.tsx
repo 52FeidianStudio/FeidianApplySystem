@@ -3,10 +3,12 @@ import apis from "../../network/apis"
 import {
     Button,
     Form,
-    Input, notification,
+    Input,
     Select,
     Upload,
-    message, Alert
+    message,
+    Alert,
+    Skeleton
 } from 'antd';
 import { FrownOutlined, PlusOutlined, SmileOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
@@ -119,7 +121,14 @@ const ApplyTable: React.FC = () => {
                     closable
                     style={{margin:"6vh 5vw 0 5vw"}}
                 />
-                {preForm&&
+                {
+                    !preForm&&
+                        <div className="skeleton-loading">
+                            <Skeleton active/>
+                        </div>
+                }
+                {
+                    preForm&&
                     <Form
                         {...formItemLayout}
                         form={form}
