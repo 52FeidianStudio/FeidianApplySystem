@@ -1,100 +1,75 @@
-@media only screen and (min-width:500px) {
-  .login-content
-  {
-    width: 80%;
-    height: 100vh;
-    .login-box
-    {
-      width: 480px;
-      border-radius:15px;
-      background: #fff;
-      box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
-      .logo{
-        width: 70px;
-        height: 70px;
-        margin: 50px calc((100% - 70px)/2);
-        margin-bottom: 10px;
-      }
-      .input-content
-      {
-        @inputMargin:50px;
-        width: calc(100% - @inputMargin * 2);
-        height: calc(100% - @inputMargin * 2);
-        margin: 20px @inputMargin 0 @inputMargin;
-      }
-      .tips{
-        width: 100%;
-        &-register,&-forget{
-          line-height: 60px;
-          color: grey;
-          display: inline-block;
-        }
-        &-register:hover,&-forget:hover{
-          color: #1677ff;
-        }
-        &-register
-        {
-          float:left;
-          margin-left: 50px;
-        }
-        &-forget{
-          float: right;
-          margin-right: 50px;
-        }
-      }
-      .login-button{
-        margin: 20px 50px 20px 50px;
-        width: calc(100% - 100px);
-      }
-    }
-  }
-}
+.login-content {
+  width: 80%;
+  height: 100vh;
 
-@media only screen and (max-width:500px) {
-  .login-content
-  {
-    width: 90%;
-    height: 100vh;
-    .login-box
-    {
-      width: 480px;
-      border-radius:15px;
-      background: #fff;
-      box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
-      .logo{
+  @media only screen and (max-width:500px) {
+    width: 90%
+  }
+
+  .login-box {
+    width: 480px;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin: 50px calc((100% - 70px)/2);
+      margin-bottom: 10px;
+
+      @media only screen and (max-width:500px) {
         width: 60px;
         height: 60px;
-        margin: 50px calc((100% - 70px)/2);
-        margin-bottom: 10px;
       }
-      .input-content
-      {
-        @inputMargin:30px;
+
+    }
+
+    .input-content {
+      @inputMargin: 50px;
+      width: calc(100% - @inputMargin * 2);
+      height: calc(100% - @inputMargin * 2);
+      margin: 20px @inputMargin 0 @inputMargin;
+
+      @media only screen and (max-width:500px) {
+        @inputMargin: 30px;
         width: calc(100% - @inputMargin * 2);
         height: calc(100% - @inputMargin * 2);
         margin: 20px @inputMargin 0 @inputMargin;
       }
-      .tips{
-        width: 100%;
-        &-register,&-forget{
-          line-height: 60px;
-          color: grey;
-          display: inline-block;
-        }
-        &-register:hover,&-forget:hover{
-          color: #1677ff;
-        }
-        &-register
-        {
-          float:left;
-          margin-left: 50px;
-        }
-        &-forget{
-          float: right;
-          margin-right: 50px;
-        }
+    }
+
+    .tips {
+      width: 100%;
+
+      &-register,
+      &-forget {
+        line-height: 60px;
+        color: grey;
+        display: inline-block;
       }
-      .login-button{
+
+      &-register:hover,
+      &-forget:hover {
+        color: #1677ff;
+      }
+
+      &-register {
+        float: left;
+        margin-left: 50px;
+      }
+
+      &-forget {
+        float: right;
+        margin-right: 50px;
+      }
+    }
+
+    .login-button {
+      margin: 20px 50px 20px 50px;
+      width: calc(100% - 100px);
+
+      @media only screen and (max-width:500px) {
         margin: 20px 30px 20px 30px;
         width: calc(100% - 60px);
       }

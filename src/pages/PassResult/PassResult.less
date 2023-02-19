@@ -1,40 +1,25 @@
-@media only screen and (min-width:500px) {
-  .pass-result-content
-  {
-    width: 80%;
-    border-radius: 15px;
-    background: #fff;
-    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
-    .funny-img-content
-    {
-      width: 100%;
-      margin-bottom: 25px;
-      margin-top: -10px;
-      img{
-        width: 200px;
-        border-radius: 15px;
-      }
-    }
-  }
-}
+.pass-result-content {
+  width: 80%;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
 
-@media only screen and (max-width:500px) {
-  .pass-result-content
-  {
+  @media only screen and (max-width:500px) {
     width: 90%;
-    border-radius: 15px;
-    background: #fff;
-    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
-    .funny-img-content
-    {
-      width: 100%;
-      margin-bottom: 25px;
-      margin-top: -10px;
-      img{
+  }
+
+  .funny-img-content {
+    width: 100%;
+    margin-bottom: 25px;
+    margin-top: -10px;
+
+    img {
+      border-radius: 15px;
+      width: 200px;
+
+      @media only screen and (max-width:500px) {
         width: 220px;
-        border-radius: 15px;
       }
     }
   }
 }
-

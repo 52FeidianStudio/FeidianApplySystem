@@ -1,104 +1,84 @@
-.skeleton-loading
-{
+.skeleton-loading {
   margin: 8%;
 }
-@media only screen and (min-width:800px) {
-  .apply-table-content
-  {
-    width: 80%;
-    min-height: 100vh;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
-    background: #fff;
-    margin-top: 30px;
-    position: relative;
-    .feidian-logo
-    {
-      width: 100%;
-      height: 100px;
-      position: relative;
-      .feidian-logo-content{
-        margin:auto;
-        width: 280px;
-        height: 80px;
-        padding:  auto;
-        padding-top: 30px;
-        display: flex;
-        img{
-          line-height: 80px;
-          width: 80px;
-          height: 80px;
-        }
-        .title{
-          line-height: 80px;
-          font-size: 30px;
-          color: grey;
-          height: 30px;
-          font-weight: 300;
-        }
-      }
-    }
-    .apply-form
-      {
-        position: relative;
-        width: 100%;
-        .apply-form-container{
-          width: 100%;
-          margin-left: -100px;
-          .ant-row{
-            width: 100%;
-          }
-        }
-      }
-  }
-}
 
-@media only screen and (max-width:800px) {
-  .apply-table-content
-  {
+.apply-table-content {
+  width: 80%;
+  min-height: 100vh;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  background: #fff;
+  margin-top: 30px;
+  position: relative;
+
+  @media only screen and (max-width:800px) {
     width: 90%;
-    min-height: 100vh;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
-    background: #fff;
-    margin-top: 30px;
+  }
+
+  .feidian-logo {
+    width: 100%;
+    height: 100px;
     position: relative;
-    .feidian-logo
-    {
-      width: 100%;
+
+    @media only screen and (max-width:800px) {
       height: 50px;
       position: relative;
       text-align: center;
-      .feidian-logo-content{
-        margin:auto;
-        width: 220px;
-        padding: auto;
-        padding-top: 20px;
-        display: flex;
-        img{
+    }
+
+    .feidian-logo-content {
+      margin: auto;
+      width: 280px;
+      height: 80px;
+      padding: auto;
+      padding-top: 30px;
+      display: flex;
+
+      img {
+        line-height: 80px;
+        width: 80px;
+        height: 80px;
+
+        @media only screen and (max-width:800px) {
           line-height: 60px;
           width: 60px;
           height: 60px;
         }
-        .title{
+      }
+
+      .title {
+        line-height: 80px;
+        font-size: 30px;
+        color: grey;
+        height: 30px;
+        font-weight: 300;
+
+        @media only screen and (max-width:800px) {
           line-height: 60px;
           font-size: 25px;
-          color: grey;
-          height: 30px;
-          font-weight: 300;
         }
       }
     }
-    .apply-form
-    {
-      position: relative;
+  }
+
+  .apply-form {
+    position: relative;
+    width: 100%;
+
+    .apply-form-container {
       width: 100%;
-      .apply-form-container{
+      margin-left: -100px;
+
+      .ant-row {
+        width: 100%;
+      }
+
+      @media only screen and (max-width:800px) {
         width: 100%;
         margin-left: 20px;
-        .ant-row{
+
+        .ant-row {
           width: 90%;
         }
       }
