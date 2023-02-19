@@ -1,177 +1,156 @@
-@media only screen and (min-width:730px) {
-    .admin-home-content
-    {
-        width: 80%;
-        min-height: 80vh;
-        border-radius: 15px;
-        margin: 50px auto;
-        background: #fff;
-        .header-content
-        {
-            height: 80px;
-            width: 100%;
-            position: relative;
-            img{
-                width: 60px;
-                height: 60px;
-                position: absolute;
-                left: 38px;
-                top: 30px;
-            }
-            .header-title
-            {
-                font-size: 30px;
-                letter-spacing: 3px;
-                position: absolute;
-                left: 111px;
-                top: 38px;
-                color: lightslategrey;
+html {
+    overflow-x: hidden;
+}
 
+.admin-home-content {
+    width: 80%;
+    min-height: 80vh;
+    border-radius: 15px;
+    margin: 50px auto;
+    background: #fff;
+
+    @media only screen and (max-width:730px) {
+        width: 95%;
+        margin: 30px auto;
+    }
+
+    .header-content {
+        height: 80px;
+        width: 100%;
+        position: relative;
+
+        img {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            left: 38px;
+            top: 30px;
+
+            @media only screen and (max-width:730px) {
+                left: 30px;
+                top: 25px;
             }
-            .header-button
-            {
+        }
+
+
+
+        .header-title {
+            font-size: 30px;
+            letter-spacing: 3px;
+            position: absolute;
+            left: 111px;
+            top: 38px;
+            color: lightslategrey;
+
+            @media only screen and (max-width:730px) {
+                font-size: 0;
+                color: #fff;
+            }
+        }
+
+        @media only screen and (min-width:730px) {
+            .header-button {
                 position: absolute;
                 right: 130px;
                 top: 47px;
             }
-            .header-switch{
+
+            .header-switch {
                 position: absolute;
                 right: 210px;
                 top: 51px;
             }
         }
-        .tabs-content
-        {
-            margin: 0 50px;
-            padding-top: 20px;
-        }
-        .list-content
-        {
-            padding: 10px 30px 25px 30px;
-        }
-        .description
-        {
-            line-height: 30px;
-            height: 30px;
-            width: 90%;
-            overflow: hidden;
-        }
 
-    }
-    .application-title{
-        padding: 20px 50px;
-    }
-    .info-title
-    {
-        line-height: 30px;
-        padding: 0 2px;
-        border-bottom: 3px solid cornflowerblue;
-        display: inline-block;
-        color: grey;
-        margin-bottom: 10px;
-    }
-    .info-content
-    {
-        line-height: 30px;
-        color: #4fa0f4;
-    }
-}
-
-
-@media only screen and (max-width:730px) {
-    html{
-        overflow-x: hidden;
-    }
-    .admin-home-content
-    {
-        width: 95%;
-        min-height: 80vh;
-        border-radius: 15px;
-        margin: 30px auto;
-        background: #fff;
-        .header-content
-        {
-            height: 80px;
-            width: 100%;
-            position: relative;
-            img{
-                width: 60px;
-                height: 60px;
-                position: absolute;
-                left: 30px;
-                top: 25px;
-            }
-            .header-title
-            {
-                position: absolute;
-                font-size: 0;
-                color: #fff;
-            }
-            .header-button-container{
+        @media only screen and (max-width:730px) {
+            .header-button-container {
                 display: flex;
                 flex-direction: row-reverse;
                 position: relative;
                 top: 40px;
                 left: -25px;
-                .header-button{
+
+                .header-button {
                     margin-left: 3vw;
                     margin-top: -.5vw;
                 }
             }
         }
-        .tabs-content
-        {
+
+
+    }
+
+    .tabs-content {
+        margin: 0 50px;
+        padding-top: 20px;
+
+        @media only screen and (max-width:730px) {
             margin: 0 40px;
             padding-top: 2vw;
         }
-        .list-content
-        {
+    }
+
+    .list-content {
+        padding: 10px 30px 25px 30px;
+    }
+
+    @media only screen and (max-width:730px) {
+        .list-content {
             padding: 10px 10px 25px 10px;
-            .ant-list-item{
-                padding:15px ;
+
+            .ant-list-item {
+                padding: 15px;
             }
-            
-            h4{
-                margin-top:1.5vw;
+
+            h4 {
+                margin-top: 1.5vw;
             }
-            .name-title{
+
+            .name-title {
                 width: 18vw;
                 margin-right: 2vw;
             }
-            .department-title{
+
+            .department-title {
                 width: 20vw;
                 position: absolute;
                 left: 40vw;
-            }      
+            }
         }
-        .description
-        {
-            position: absolute;
-            line-height: 30px;
-            height: 30px;
-            width: 90%;
-            font-size: 0;
-            overflow: hidden;
-        }
+    }
 
-    }
-    .info-title
-    {
+    .description {
         line-height: 30px;
-        padding: 0 2px;
-        border-bottom: 3px solid cornflowerblue;
-        display: inline-block;
-        color: grey;
-        margin-bottom: 10px;
+        height: 30px;
+        width: 90%;
+        overflow: hidden;
+
+        @media only screen and (max-width:730px) {
+            position: absolute;
+            font-size: 0;
+        }
     }
-    .info-content
-    {
-        line-height: 30px;
-        color: #4fa0f4;
-    }
-    .application-title{
+
+}
+
+.application-title {
+    padding: 20px 50px;
+
+    @media only screen and (max-width:730px) {
         padding: 0px 0px;
     }
 }
 
+.info-title {
+    line-height: 30px;
+    padding: 0 2px;
+    border-bottom: 3px solid cornflowerblue;
+    display: inline-block;
+    color: grey;
+    margin-bottom: 10px;
+}
 
+.info-content {
+    line-height: 30px;
+    color: #4fa0f4;
+}
