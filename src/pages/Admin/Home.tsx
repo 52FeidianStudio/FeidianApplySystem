@@ -1,6 +1,8 @@
 import "./Home.less"
 import React, { useEffect, useState } from 'react';
-import {Avatar, List, Tabs, Switch, Row, Col, Divider, Button, Modal, message, Skeleton} from 'antd';
+import {Avatar, List, Tabs, Switch, Row, Col, Divider, Button, Modal, message, Menu} from 'antd';
+import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
 import { UserInfotype, TabsType } from "../../types/common";
 import apis from "../../network/apis";
 import logoUrl from "../../assets/logo.png"
@@ -125,8 +127,63 @@ const AdminHome: React.FC = () => {
             })
         }
     }
+
+    //侧边栏相关
+    type MenuItem = Required<MenuProps>['items'][number];
+
+    function getItem(
+        label: React.ReactNode,
+        key: React.Key,
+        icon?: React.ReactNode,
+        children?: MenuItem[],
+        type?: 'group',
+    ): MenuItem {
+        return {
+            key,
+            icon,
+            children,
+            label,
+            type,
+        } as MenuItem;
+    }
+    const items: MenuProps['items'] = [
+        {label:"das",
+            key:"demo",
+            icon:<AppstoreOutlined />,
+            children:[
+                {label:"dsadasad",key:"sdada"}
+            ]},
+        getItem('大前端组', 'fe', <AppstoreOutlined />, [
+            getItem('Option 5', '22312'),
+            getItem('Option 6', '1'),
+        ]),
+        getItem('Java组', 'java', <AppstoreOutlined />, [
+            getItem('Option 5', '5'),
+            getItem('Option 6', '6'),
+        ]),
+
+        getItem('IOS组', 'ios', <SettingOutlined />, [
+            getItem('Option 9', '9'),
+            getItem('Option 10', '10'),
+        ]),
+        getItem('信安组', 'networkSafety', <AppstoreOutlined />, [
+            getItem('Option 5', '76'),
+            getItem('Option 6', '767'),
+        ]),
+    ];
+    const onClick: MenuProps['onClick'] = (e) => {
+        console.log('click ', e);
+    };
     return (
-        <>
+        <div className="admin-container">
+            <div className="left-menu-content">
+                <Menu
+                    onClick={onClick}
+                    style={{ width: "100%" ,marginTop:30}}
+                    mode="inline"
+                    items={items}
+                />
+            </div>
             <div className="admin-home-content">
                 <div className="header-content">
                     <img alt="logo" src={logoUrl} />
@@ -248,7 +305,7 @@ const AdminHome: React.FC = () => {
                     </Row>
                 </div>
             </Modal>
-        </>
+        </div>
     )
 }
 export default AdminHome;
