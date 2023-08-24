@@ -6,34 +6,51 @@ export interface LoginInfoType  {
 export interface RegisterInfoType  {
     username:string,
     email:string,
-    password:string
+    password:string,
+    name:string,
+    sex:string,
+    studentId:string,
+    className:string,
+    subject:string,
+    nationality:string,
+    phone:string,
+    qq:string,
+    gradeName:string,
+    birthday:any
 }
 export interface NewPasswordType  {
     username:string,
     password:string,
     code:string,
+    email:string
 }
 export interface UserInfotype {
     loading: boolean;
     selected: boolean;
     username?:string,
-    studentID?:string,
+    studentId?:string,
     grade?:string,
     faculty?:string
-    class_?:string,
+    className?:string,
     name?:string,
     sex?:string,
     nationality?:string,
     phone?:string,
     email?:string,
-    department?:string,
+    department:string,
     reason?:string,
-    selfIntroduction?:string,
+    resume?:string,
     status?:string,
     imgURL?:string,
     selectState?:boolean
+    desireDepartmentId:number
 }
 export interface TabsType{
     key:string,
     label:string
+}
+
+export interface UserApplyType{
+  key:string,
+  label:string
 }

@@ -10,7 +10,8 @@ const Login: React.FC = function () {
     const NewPassword: NewPasswordType = {
         username: '',
         password: '',
-        code: ''
+        code: '',
+        email: '',
     }
     const [form, setForm] = useState(NewPassword)
     const handleChange = async (e: any) => {
@@ -33,7 +34,7 @@ const Login: React.FC = function () {
     };
     let [buttonState, setButtomState] = useState(false)
     const GetCode = async () => {
-        let res = await apis.SendCode(form.username);
+        let res = await apis.SendCode({ username: form.username, email: form.email });
         messageApi.info('验证码已发送，请查看邮箱邮件,60s内只能发送一次');
         setButtomState(true);
         setTimeout(() => {
@@ -54,6 +55,14 @@ const Login: React.FC = function () {
                         size="large" placeholder="用户名"
                         prefix={<UserOutlined />} name="username"
                         value={form.username}
+                        onChange={handleChange}
+                        maxLength={20}
+                    />
+                    {/* 写一个邮箱的输入框 */}
+                    <Input style={{ marginBottom: "20px" }}
+                        size="large" placeholder="邮箱"
+                        prefix={<UserOutlined />} name="email"
+                        value={form.email}
                         onChange={handleChange}
                         maxLength={20}
                     />

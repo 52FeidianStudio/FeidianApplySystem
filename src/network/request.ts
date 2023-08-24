@@ -3,12 +3,15 @@ import {message} from 'antd';
 export default function request(config:any) {
   const instance = axios.create({
     // baseURL: 'https://backend.ifeidian.cc',
-      baseURL:'http://101.43.181.13:8888', //测试环境接口
+      baseURL:'http://182.254.242.96:3333', //测试环境接口
     timeout: 20000,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
-      'token': localStorage.getItem('token')
+      'token': localStorage.getItem('token'),
+      'Authorization': localStorage.getItem('token')
     },
+    // 把数据放在请求体中
+    data: config.data,
     method:config.method
   })
 // http response 拦截器，统一处理异常请求
@@ -20,17 +23,18 @@ instance.interceptors.response.use(
     }
     else
     {
-      if(response.data.message == "登录已过期"||response.data.message == "权限不足")
+      if(response.data.msg == "登录已过期"||response.data.msg == "无权限操作" || response.data.msg == "需要登录后操作")
       {
-          message.error(response.data.message+",请重新登录");
+          alert(response.data.msg+",请重新登录");
           localStorage.setItem("token","");
           location.reload();
       }
       else{
-        message.error(response.data.message);
+        // 此处的message.error不知道为什么不显示，所以我改为了alert
+        message.error(response.data.msg);
       }
 
-      return Promise.reject(response.data.messsage);
+      return Promise.reject(response.data.msg);
     }
   },
   error => {

@@ -42,20 +42,24 @@ const tailFormItemLayout = {
 
 const ApplyTable: React.FC = () => {
     const [form] = Form.useForm();
+    const [isDisabled, setIsDisabled] = useState(false);
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
+    // 后端有接口，所以要尝试从后端获取preForm
     let [preForm, SetPreForm] = useState<UserInfotype>();
     let demo = {};
     useRequest(apis.GetSingleApplyinfo,{
         onSuccess:(res)=>{
             let userInfo:UserInfotype = res.data.data;
-            if (userInfo.status != "not reviewed")
+            if (userInfo.status != '0')
             {
                 navigate("/pass_result");
                 message.info("当前已无法修改申请，面试结果已出！")
             }
             SetPreForm(res.data.data);
-
+            if(preForm != null){
+              setIsDisabled(true)
+            }
         }
     });
     useEffect(() => {
@@ -87,7 +91,7 @@ const ApplyTable: React.FC = () => {
     };
     //申请提交
     const onFinish = async (values: UserInfotype) => {
-        if (values.studentID?.slice(0, 2) != "20")
+        if (values.studentId?.slice(0, 2) != "20")
         {
             message.error("请输入正确的学号")
         }
@@ -97,9 +101,7 @@ const ApplyTable: React.FC = () => {
         }
         else
         {
-
-            let grade = values.studentID?.slice(0, 4);
-            values.grade = grade;
+            values.desireDepartmentId=parseInt(values.department)
             let res = await apis.SendApplication(values);
             message.info("申请提交成功！")
             navigate("/apply_result")
@@ -140,9 +142,10 @@ const ApplyTable: React.FC = () => {
                         scrollToFirstError
                         className="apply-form-container"
                     >
+                        {/* TODO:上传照片给后端 */}
                         <Form.Item label="上传照片" valuePropName="fileList">
-                            <Upload action="https://backend.ifeidian.cc/user/img"
-                                    headers={{ token: `${token}` }}
+                            <Upload action="http://182.254.242.96:3333/register/submitImage"
+                                    headers={{'Authorization': `${token}`,'Content-Type': 'multipart/form-data'}}
                                     listType="picture-card"
                                     accept=".png,.jpg,.jpeg"
                                     onChange={uploadCallBack}
@@ -160,7 +163,7 @@ const ApplyTable: React.FC = () => {
                             tooltip="What do you want others to call you?"
                             rules={[{ required: true, message: '请输入你的姓名！', whitespace: true }]}
                         >
-                            <Input maxLength={30} />
+                            <Input maxLength={30} disabled={isDisabled}/>
                         </Form.Item>
 
                         <Form.Item
@@ -168,7 +171,7 @@ const ApplyTable: React.FC = () => {
                             label="性别"
                             rules={[{ required: true, message: '请选择你的性别!' }]}
                         >
-                            <Select placeholder="你是GG还是MM">
+                            <Select placeholder="你是GG还是MM" disabled={isDisabled}>
                                 <Option value="男性">男性</Option>
                                 <Option value="女性">女性</Option>
                                 <Option value="其他">其他</Option>
@@ -182,7 +185,7 @@ const ApplyTable: React.FC = () => {
                             rules={[{ required: true, message: '请输入你的手机号!' }]}
                         >
                             <Input
-                                style={{ width: '100%' }} minLength={11} maxLength={15} />
+                                style={{ width: '100%' }} minLength={11} maxLength={15}  disabled={isDisabled} />
                         </Form.Item>
 
 
@@ -201,15 +204,15 @@ const ApplyTable: React.FC = () => {
                                 },
                             ]}
                         >
-                            <Input maxLength={30} />
+                            <Input maxLength={30}  disabled={isDisabled}/>
                         </Form.Item>
 
                         <Form.Item
-                            name="studentID"
+                            name="studentId"
                             label="学号"
                             rules={[{ required: true, message: '请输入你的学号!' }]}
                         >
-                            <Input minLength={13} maxLength={20} style={{ width: '100%' }} />
+                            <Input minLength={13} maxLength={20} style={{ width: '100%' }}  disabled={isDisabled}/>
                         </Form.Item>
 
 
@@ -218,15 +221,15 @@ const ApplyTable: React.FC = () => {
                             label="院系"
                             rules={[{ required: true, message: '请输入你所在的学院!' }]}
                         >
-                            <Input maxLength={20} style={{ width: '100%' }} />
+                            <Input maxLength={20} style={{ width: '100%' }}  disabled={isDisabled}/>
                         </Form.Item>
 
                         <Form.Item
-                            name="class_"
+                            name="className"
                             label="班级"
                             rules={[{ required: true, message: '请输入你所在的班级!' }]}
                         >
-                            <Input maxLength={20} style={{ width: '100%' }} />
+                            <Input maxLength={20} style={{ width: '100%' }}  disabled={isDisabled}/>
                         </Form.Item>
 
                         <Form.Item
@@ -234,20 +237,27 @@ const ApplyTable: React.FC = () => {
                             label="民族"
                             rules={[{ required: true, message: '请输入你的民族名称!' }]}
                         >
-                            <Input maxLength={10} style={{ width: '100%' }} />
+                            <Input maxLength={10} style={{ width: '100%' }}  disabled={isDisabled}/>
                         </Form.Item>
 
                         <Form.Item
                             name="department"
                             label="申请的部门"
-                            rules={[{ required: true, message: '请选择你要加入的部门!' }]}
+                            rules={[{ required: true, message: '请选择你要加入的部门!'}]}
                         >
                             <Select placeholder="选择你要加入的部门">
-                                <Option value="大前端组">大前端组</Option>
-                                <Option value="JAVA组">JAVA组</Option>
-                                <Option value="IOS组">IOS组</Option>
-                                <Option value="信安组">信安组</Option>
+                                <Option value="0">前端</Option>
+                                <Option value="1">后端</Option>
+                                <Option value="2">IOS</Option>
+                                <Option value="3">信息安全</Option>
                             </Select>
+                        </Form.Item>
+                        <Form.Item
+                            name="resume"
+                            label="自我介绍"
+                            rules={[{ required: true, message: '请输入你的自我介绍' }]}
+                        >
+                            <Input.TextArea showCount maxLength={300} />
                         </Form.Item>
                         <Form.Item
                             name="reason"
@@ -257,17 +267,25 @@ const ApplyTable: React.FC = () => {
                             <Input.TextArea showCount maxLength={300} />
                         </Form.Item>
                         <Form.Item
-                            name="selfIntroduction"
-                            label="自我介绍"
-                            rules={[{ required: true, message: '请输入你的自我介绍' }]}
+                            name="arrangement"
+                            label="大学四年整体规划"
+                            rules={[{ required: true, message: '请输入你大学四年的规划' }]}
                         >
                             <Input.TextArea showCount maxLength={300} />
                         </Form.Item>
-
-
+                        <Form.Item
+                            name="direction"
+                            label="发展方向"
+                            rules={[{ required: true, message: '请输入你规划的发展方向' }]}
+                        >
+                            <Input.TextArea showCount maxLength={300} />
+                        </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
                             <Button style={{ marginBottom: "50px" }} type="primary" htmlType="submit">
                                 发送申请
+                            </Button>
+                            <Button style={{ marginBottom: "50px",marginLeft:'73%' }} type="primary" onClick={() => { localStorage.setItem("token", ''); navigate("/") }}>
+                                退出
                             </Button>
                         </Form.Item>
 

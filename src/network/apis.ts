@@ -20,20 +20,21 @@ const apis = {
     SendApplication(data:UserInfotype)
     {
         return request({
-            url:"/user",
+            url:"/register/submitRegister",
             method:"POST",
             data:data
         })
     },
-    SendCode(data:string){
+    SendCode(data:object){
         return request({
-            url:`/verification/email?username=${data}`,
-            method:"GET"
+            url:`/forgetPassword`,
+            method:"POST",
+            data:data
         })
     },
     ChangePassword(data:NewPasswordType){
         return request({
-            url:`/verification/email`,
+            url:`/verifyProcess`,
             method:"POST",
             data:data
         })
@@ -41,28 +42,49 @@ const apis = {
     //获取用户个人信息
     GetSingleApplyinfo(){
         return request({
-            url:"/user",
+            url:"/user/getMessage",
             method:"GET"
         })
     },
     //用户管理相关接口
-    GetAllApplyInfo(data:any){
+    GetAllSelectInfo(data:any){
         return request({
-            url:"/admin/view",
+            url:"/register/selectQueryCategory",
             method:"POST",
             data:data
         })
     },
-    GetAllGrade(){
+    GetAllApplyInfo(data:any){
         return request({
-            url:"/admin/grade",
+            url:"/register/selectByQueryRegister",
+            method:"POST",
+            data:data
+        })
+    },
+    GetOneApplyInfo(data:any){
+        return request({
+            url:"/register/viewRegister",
+            method:"POST",
+            data:data
+        })
+    },
+    GetAllFaculty(){
+        return request({
+            url:"/faculty/getAllName",
             method:"GET"
         })
+    },
+    GetAllSubjectsByFaculty(data:any){
+      return request({
+        url:'/subject/getSubjectNameByFaculty',
+        method:'GET',
+        params:data
+      })
     },
     SendEmail(data:any)
     {
         return request({
-            url:"/admin/review",
+            url:"/sendEmail",
             method:"POST",
             data:data
         })

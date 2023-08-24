@@ -18,11 +18,11 @@ const PassResult: React.FC = () => {
     }, [])
     let state: string = localStorage.getItem('state');
     let status, messageInfo;
-    if (state == "pass") {
+    if (state == "2") {
         status = "success";
         messageInfo = "恭喜你成功通过面试，很高兴你能成为我们之中的一员";
     }
-    else if (state == "out") {
+    else if (state == "3") {
         status = "error";
         messageInfo = "很遗憾你未能通过面试，感谢你选择沸点工作室";
     }
