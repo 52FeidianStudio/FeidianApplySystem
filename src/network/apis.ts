@@ -1,5 +1,5 @@
 import request from "./request";
-import type {LoginInfoType,RegisterInfoType,UserInfotype,NewPasswordType} from "../types/common";
+import type {LoginInfoType,RegisterInfoType,UserInfotype,NewPasswordType, InfoEmail} from "../types/common";
 
 const apis = {
     //用户登录接口
@@ -25,6 +25,14 @@ const apis = {
             data:data
         })
     },
+    SendApplicationAgain(data:UserInfotype)
+    {
+        return request({
+            url:"/register/editRegister",
+            method:"POST",
+            data:data
+        })
+    },
     SendCode(data:object){
         return request({
             url:`/forgetPassword`,
@@ -45,6 +53,13 @@ const apis = {
             url:"/user/getMessage",
             method:"GET"
         })
+    },
+    //获取用户报名信息
+    GetSelfApplyinfo(){
+      return request({
+        url:'/register/viewRegisterInfo',
+        method:'GET'
+      })
     },
     //用户管理相关接口
     GetAllSelectInfo(data:any){
@@ -84,10 +99,18 @@ const apis = {
     SendEmail(data:any)
     {
         return request({
-            url:"/sendEmail",
+            url:`/sendEmail?email=${data.email}`,
             method:"POST",
-            data:data
+            // data:data
         })
+    },
+    SendInfoEmail(data:InfoEmail)
+    {
+      return request({
+        url:'/register/isApproved',
+        method:'POST',
+        data:data
+      })
     },
     GetMailTemplate(){
         return request({

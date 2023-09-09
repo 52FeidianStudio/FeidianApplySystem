@@ -55,12 +55,6 @@ const Register: React.FC = function () {
     const newValue=e.target.value;
     setEmailValue(newValue)
   }
-  // function formatDateToYYYYMMDD(date:any) {
-  //   const year = date.getFullYear();
-  //   const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始，需要加1
-  //   const day = String(date.getDate()).padStart(2, '0');
-  //   return `${year}-${month}-${day}`;
-  // }
   const handleSendCode = async()=>{
     if(isSending || countdown>0 || emailValue==''){
       return;
@@ -68,11 +62,21 @@ const Register: React.FC = function () {
     setIsSending(true)
     setCountdown(60)
     try{
-      // await apis.SendEmail({email:emailValue})
+      await apis.SendEmail({email:emailValue})
       message.success('验证码发送成功！')
     }catch(error){
       alert(error)
     }
+    setIsSending(false)
+    const timer=setInterval(()=>{
+      setCountdown((countdown)=>{
+        if(countdown<=0){
+          clearInterval(timer)
+          return 0
+        }
+        return countdown-1
+      })
+    },1000)
   }
   const onFinish = async (value: RegisterInfoType) => {
     let grade = value.studentId?.slice(0, 4);
@@ -82,7 +86,7 @@ const Register: React.FC = function () {
     console.log(value)
     //邮箱合法性校验
     if (checkEmail(value.email)) {
-      // await apis.Register(value);
+      await apis.Register(value);
       messageApi.info('注册成功，请登录');
       setTimeout(() => {
         navigate("/login")
@@ -199,9 +203,8 @@ const Register: React.FC = function () {
             rules={[{ required: true, message: '请选择你的性别!' }]}
           >
             <Select placeholder="你是GG还是MM">
-              <Option value="男性">男性</Option>
-              <Option value="女性">女性</Option>
-              <Option value="其他">其他</Option>
+              <Option value="男">男性</Option>
+              <Option value="女">女性</Option>
             </Select>
           </Form.Item>
           <Form.Item
@@ -237,8 +240,7 @@ const Register: React.FC = function () {
             style={{ width: '50%' }}
             rules={[{ required: true, message: '请输入你的qq号!' }]}
           >
-            <Input
-              minLength={11} maxLength={15} />
+            <Input/>
           </Form.Item>
           <Form.Item
             name="studentId"

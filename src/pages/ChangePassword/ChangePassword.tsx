@@ -27,9 +27,7 @@ const Login: React.FC = function () {
             description: "change successfully.Please login!.",
             icon: <SmileOutlined style={{ color: '#108ee9' }} />,
         });
-
-        localStorage.setItem('token', res.data.data.token);
-        navigate("/apply");
+        navigate("/login");
 
     };
     let [buttonState, setButtomState] = useState(false)

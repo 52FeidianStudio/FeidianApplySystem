@@ -38,16 +38,12 @@ const AdminHome: React.FC = () => {
     let majors: MenuItem[]=[];
     try {
       const gradeResponse = await apis.GetAllSelectInfo({ "queryCategoryId": 1 });
-      console.log(gradeResponse.data.data);
-      
-      
       grades = gradeResponse.data.data.map((item: any) => ({
         "label": item.gradeName,
         "key": item.gradeName,
         "icon": <AppstoreOutlined />,
       }));  
       const majorResponse = await apis.GetAllSelectInfo({ "queryCategoryId": 2 });
-      console.log(majorResponse.data.data);
       
       majors = majorResponse.data.data.map((item: any) => ({
         "label": item.subjectName,
@@ -56,7 +52,6 @@ const AdminHome: React.FC = () => {
       }));
   
       const departmentResponse = await apis.GetAllSelectInfo({ "queryCategoryId": 3 });
-      console.log(departmentResponse.data.data);
       departmentResponse.data.data.forEach((item: any) => {
         items.push({
           "label": item.departmentName,
@@ -115,6 +110,8 @@ const AdminHome: React.FC = () => {
   const showUserInfo = async (item: any) => {
     setInfo({})
     let userInfo = await apis.GetOneApplyInfo({ 'registerId': item.registerId });
+    // let partUrl = userInfo.data.data.imgUrl.replace(/\/\//g, "/");
+    // userInfo.data.data.imgUrl = partUrl;
     console.log(userInfo.data.data)
     setInfo(userInfo.data.data);
   }
@@ -138,17 +135,8 @@ const AdminHome: React.FC = () => {
     list[index].selectState = value;
   }
   const SendEmail = async (type: string) => {
-    let res = await apis.GetMailTemplate();
-    let mailTemplates = res.data.data.templates;
-    let passMessage: string, outMessage: string;
-    mailTemplates.map((item: any) => {
-      if (item.type == "pass") {
-        passMessage = item.message;
-      }
-      else {
-        outMessage = item.message;
-      }
-    })
+    const passMessage:string = '沸点工作室衷心地向您表示祝贺！您已成功通过我们的面试过程，我们很高兴地通知您成为我们工作室预备成员中的一员。'
+    const outMessage:string = '感谢您能参与我们的面试，但经过综合的评估与考虑，我们不得不遗憾地通知您，您暂时未能成功通过我们的面试。'
     message.info("邮件发送中....")
     //邮件发送
     function send(item: UserInfotype) {
@@ -156,12 +144,12 @@ const AdminHome: React.FC = () => {
       if (item.status == "0") {
         item.loading = true;
         setList([...list]);
-        apis.SendEmail({
-          "username": item.username,
-          "status": type == "pass" ? "pass" : "out",
-          "emailContent": type == "pass" ? `${item.name}同学` + passMessage : `${item.name}同学` + outMessage
+        apis.SendInfoEmail({
+          "registerId": +item.registerId!,
+          "isApprovedFlag": type == "pass" ? "2" : "3",
+          "emailContent": type == "pass" ? `${item.name}同学: \n\t` + passMessage : `${item.name}同学: \n\t` + outMessage
         }).then((res) => {
-          if (res.data.message == "审核成功") {
+          if (res.data.message == "成功修改报名表状态为已通过，并将其添加至预备成员") {
             item.loading = false;
             setList([...list]);
           }
@@ -256,7 +244,7 @@ const AdminHome: React.FC = () => {
                   />,]}
                 >
                   <List.Item.Meta
-                    avatar={<Avatar src={item.imgURL} />}
+                    avatar={<Avatar src={item.imgUrl} />}
                     title={<div className="name-title">{item.name}</div>}
                     description={<div className="description">{item.resume}</div>}
                   />
@@ -283,7 +271,7 @@ const AdminHome: React.FC = () => {
             User Profile
           </p>
           <div style={{ margin: "10px auto" }}>
-            <Avatar shape="square" size={150} src={info.imgURL} />
+            <Avatar shape="square" size={150} src={info.imgUrl} />
           </div>
           <Row>
 

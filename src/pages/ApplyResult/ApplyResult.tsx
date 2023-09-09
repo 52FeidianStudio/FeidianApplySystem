@@ -21,7 +21,7 @@ const ApplyResult: React.FC = () => {
                 <Result
                     status="success"
                     title="你的报名申请我们已经收到!"
-                    subTitle="感谢你选择沸点工作室，具体面试时间请关注QQ招新群：950492051"
+                    subTitle="感谢你选择沸点工作室，具体面试时间请关注QQ招新群：660578134"
                     extra={[
                         <div className="ercode-content flex-center">
                             <img src={ercodeUrl} alt="ercode" />

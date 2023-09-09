@@ -25,8 +25,8 @@ export interface NewPasswordType  {
     email:string
 }
 export interface UserInfotype {
-    loading: boolean;
-    selected: boolean;
+    loading?: boolean;
+    selected?: boolean;
     username?:string,
     studentId?:string,
     grade?:string,
@@ -41,9 +41,12 @@ export interface UserInfotype {
     reason?:string,
     resume?:string,
     status?:string,
-    imgURL?:string,
+    imgUrl?:string,
     selectState?:boolean
-    desireDepartmentId:number
+    desireDepartmentId?:number,
+    arrangement?:string,
+    direction?:string
+    registerId?:string,
 }
 export interface TabsType{
     key:string,
@@ -53,4 +56,10 @@ export interface TabsType{
 export interface UserApplyType{
   key:string,
   label:string
+}
+
+export interface InfoEmail{
+  registerId:number,
+  isApprovedFlag:string,
+  emailContent:string,
 }

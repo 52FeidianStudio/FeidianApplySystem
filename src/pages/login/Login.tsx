@@ -46,8 +46,9 @@ const Login: React.FC = function () {
           message.info("登录成功");
           localStorage.setItem('token', res.data.data.token);
           if (res.data.data.roleId > 3 ) {
-            let userInfo = await apis.GetSingleApplyinfo(); // 使用 await 等待异步请求
-            if (userInfo?.data.departmentName) {
+            let {data:userInfo} = await apis.GetSingleApplyinfo(); // 使用 await 等待异步请求
+            console.log(userInfo);
+            if (userInfo.data.status != null){
               localStorage.setItem('state', userInfo.data.status);
               navigate("/pass_result");
             } else {
