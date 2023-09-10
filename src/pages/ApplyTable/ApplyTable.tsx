@@ -179,12 +179,19 @@ const ApplyTable: React.FC = () => {
             className="apply-form-container"
           >
             {/* TODO:上传照片给后端 */}
-            <Form.Item label="上传照片" valuePropName="fileList">
+            <Form.Item label="上传照片" valuePropName="fileList" name="imgUrl">
               <Upload 
                 listType="picture-card"
                 accept=".png,.jpg,.jpeg"
                 // onChange={uploadCallBack}
                 maxCount={1}
+                defaultFileList={preForm.imgUrl?[{
+                  uid: '-1',
+                  name: 'image.png',
+                  status: 'done',
+                  url: preForm.imgUrl,
+                }]:[]
+                }
                 beforeUpload={beforeUpload}>
                 <div>
                   <PlusOutlined />

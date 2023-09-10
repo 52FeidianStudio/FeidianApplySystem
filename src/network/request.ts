@@ -30,7 +30,6 @@ instance.interceptors.response.use(
           location.reload();
       }
       else{
-        // 此处的message.error不知道为什么不显示，所以我改为了alert
         message.error(response.data.msg);
       }
 
