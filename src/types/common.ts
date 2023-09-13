@@ -37,7 +37,7 @@ export interface UserInfotype {
     nationality?:string,
     phone?:string,
     email?:string,
-    department:string,
+    department?:string,
     reason?:string,
     resume?:string,
     status?:string,

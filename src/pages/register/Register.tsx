@@ -1,4 +1,3 @@
-
 import './Register.less'
 import { Button, Input, notification, message, Form, Select, DatePicker, Tooltip } from "antd";
 import React, { useState } from "react";
@@ -136,7 +135,7 @@ const Register: React.FC = function () {
             style={{ width: '50%' }}
             rules={[{ required: true, message: '请输入你的密码！', whitespace: true }]}
           >
-            <Input maxLength={30} />
+            <Input.Password maxLength={30} />
           </Form.Item>
           <Form.Item
             name="email"

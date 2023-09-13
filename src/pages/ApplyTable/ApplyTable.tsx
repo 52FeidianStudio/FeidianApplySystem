@@ -47,6 +47,7 @@ const ApplyTable: React.FC = () => {
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const [isCommited, setIsCommited] = useState(false);
+  const [imgUploadState, setImgUploadState] = useState(false);
   // 后端有接口，所以要尝试从后端获取preForm
   let [preForm, SetPreForm] = useState<UserInfotype>();
   let demo = {};
@@ -64,6 +65,7 @@ const ApplyTable: React.FC = () => {
         const fetchData = { ...res.data.data, ...userInfo.frontUserVO };
         fetchData.department=fetchData.desireDepartmentName;
         SetPreForm(fetchData);
+        setImgUploadState(true)
       }else{
         SetPreForm(userInfo.frontUserVO);
       }
@@ -79,7 +81,6 @@ const ApplyTable: React.FC = () => {
     }
   }, [preForm])
   // //判断图片是否上传
-  let imgUploadState = false;
   // const uploadCallBack = (e: any) => {
   //   console.log(e);
   //   if (e.file.response?.message == "图片上传成功") {
@@ -113,7 +114,7 @@ const ApplyTable: React.FC = () => {
       .then(response => {
         // 处理成功响应
         console.log(response)
-        imgUploadState = true;
+        setImgUploadState(true);
         message.success('上传成功！');
       })
       .catch(error => {
@@ -129,14 +130,26 @@ const ApplyTable: React.FC = () => {
       message.error("请输入正确的学号")
     }
     else if (!imgUploadState) {
+      console.log(imgUploadState);
       message.error("请上传图片")
     }
     else {
-      console.log(values);
-      values.desireDepartmentId = parseInt(values.department)
       if(!isCommited){
+        values.desireDepartmentId = parseInt(values.department!)
+        console.log(values);
         await apis.SendApplication({ resume: values.resume, reason: values.reason, arrangement: values.arrangement, direction: values.direction,desireDepartmentId:values.desireDepartmentId } as UserInfotype);
       }else{
+        // if(values.department!=preForm?.desireDepartmentId){
+        //   values.desireDepartmentId = parseInt(values.department!)
+        // } else{
+        //   values.desireDepartmentId = preForm?.desireDepartmentId
+        // }
+        if(values.department=="1"||values.department=="2"||values.department=="3"||values.department=="4"){
+          values.desireDepartmentId = parseInt(values.department!)
+        }else{
+          values.desireDepartmentId = 1
+        }
+        console.log(values);
         await apis.SendApplicationAgain({ resume: values.resume, reason: values.reason, arrangement: values.arrangement, direction: values.direction,desireDepartmentId:values.desireDepartmentId } as UserInfotype);
       }
       message.info("申请提交成功！")
@@ -179,7 +192,7 @@ const ApplyTable: React.FC = () => {
             className="apply-form-container"
           >
             {/* TODO:上传照片给后端 */}
-            <Form.Item label="上传照片" valuePropName="fileList" name="imgUrl">
+            <Form.Item label="上传照片" name="imgUrl">
               <Upload 
                 listType="picture-card"
                 accept=".png,.jpg,.jpeg"
