@@ -1,12 +1,14 @@
 .register-content {
   width: 80%;
   height: 100vh;
+
   @media only screen and (max-width:500px) {
+    height: 165vh;
     width: 90%;
   }
 
   .register-box {
-    width: 480px;
+    width: 780px;
     border-radius: 15px;
     background: #fff;
     box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
@@ -16,6 +18,7 @@
       height: 70px;
       margin: 50px calc((100% - 70px)/2);
       margin-bottom: 10px;
+
       @media only screen and (max-width:500px) {
         width: 60px;
         height: 60px;
@@ -24,37 +27,76 @@
       }
     }
 
-    .input-content {
-      @inputMargin: 50px;
-      width: calc(100% - @inputMargin * 2);
-      height: calc(100% - @inputMargin * 2);
-      margin: 20px @inputMargin 0 @inputMargin;
-      @media only screen and (max-width:500px) {
-        @inputMargin: 30px;
-        width: calc(100% - @inputMargin * 2);
-        height: calc(100% - @inputMargin * 2);
-        margin: 20px @inputMargin 0 @inputMargin;
+    .apply-form-container {
+      .ant-form-item {
+        // display: flex;
+
+        width: 50%;
+
+        @media only screen and (max-width:500px) {
+          margin-left: 10%;
+          margin-bottom: 3%;
+          width: 80%;
+          .ant-form-item{
+            margin-left: 0;
+          }
+
+          .code-group {
+            width: 80%;
+            display: flex;
+            margin-left: 0;
+
+            .code-item {
+              width: 60%;
+            }
+
+            .code-btn {
+              width: 40%;
+            }
+          }
+        }
+
+        .code-item {
+          width: 60%;
+        }
+
+        .code-btn {
+          width: 40%;
+        }
       }
     }
 
-    .tips {
-      width: 100%;
-      line-height: 60px;
-      color: grey;
-      text-align: center;
-    }
+    // .input-content {
+    //   @inputMargin: 50px;
+    //   width: calc(100% - @inputMargin * 2);
+    //   height: calc(100% - @inputMargin * 2);
+    //   margin: 20px @inputMargin 0 @inputMargin;
+    //   @media only screen and (max-width:500px) {
+    //     @inputMargin: 30px;
+    //     width: calc(100% - @inputMargin * 2);
+    //     height: calc(100% - @inputMargin * 2);
+    //     margin: 20px @inputMargin 0 @inputMargin;
+    //   }
+    // }
 
-    .tips:hover {
-      color: #1677ff;
-    }
+    // .tips {
+    //   width: 100%;
+    //   line-height: 60px;
+    //   color: grey;
+    //   text-align: center;
+    // }
 
-    .register-button {
-      margin: 20px 50px 20px 50px;
-      width: calc(100% - 100px);
-      @media only screen and (max-width:500px) {
-        margin: 20px 50px 0px 30px;
-        width: calc(100% - 60px);
-      }
-    }
+    // .tips:hover {
+    //   color: #1677ff;
+    // }
+
+    // .register-button {
+    //   margin: 20px 50px 20px 50px;
+    //   width: calc(100% - 100px);
+    //   @media only screen and (max-width:500px) {
+    //     margin: 20px 50px 0px 30px;
+    //     width: calc(100% - 60px);
+    //   }
+    // }
   }
 }

@@ -1,0 +1,89 @@
+.skeleton-loading {
+  margin: 8%;
+}
+.apply-table-content {
+  width: 80%;
+  min-height: 100vh;
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: #fff;
+  margin-top: 30px;
+  position: relative;
+}
+@media only screen and (max-width: 800px) {
+  .apply-table-content {
+    width: 90%;
+  }
+}
+.apply-table-content .feidian-logo {
+  width: 100%;
+  height: 100px;
+  position: relative;
+}
+@media only screen and (max-width: 800px) {
+  .apply-table-content .feidian-logo {
+    height: 50px;
+    position: relative;
+    text-align: center;
+  }
+}
+.apply-table-content .feidian-logo .feidian-logo-content {
+  margin: auto;
+  width: 280px;
+  height: 80px;
+  padding: auto;
+  padding-top: 30px;
+  display: flex;
+}
+.apply-table-content .feidian-logo .feidian-logo-content img {
+  line-height: 80px;
+  width: 80px;
+  height: 80px;
+}
+@media only screen and (max-width: 800px) {
+  .apply-table-content .feidian-logo .feidian-logo-content img {
+    line-height: 60px;
+    width: 60px;
+    height: 60px;
+  }
+}
+.apply-table-content .feidian-logo .feidian-logo-content .title {
+  line-height: 80px;
+  font-size: 30px;
+  color: grey;
+  height: 30px;
+  font-weight: 300;
+}
+@media only screen and (max-width: 800px) {
+  .apply-table-content .feidian-logo .feidian-logo-content .title {
+    line-height: 60px;
+    font-size: 25px;
+  }
+}
+.apply-table-content .apply-form {
+  position: relative;
+  width: 100%;
+}
+.apply-table-content .apply-form .apply-form-container {
+  width: 100%;
+  margin-left: -100px;
+}
+.apply-table-content .apply-form .apply-form-container .ant-row {
+  width: 100%;
+}
+.apply-table-content .apply-form .apply-form-container .btn {
+  margin-left: 73%;
+}
+@media only screen and (max-width: 800px) {
+  .apply-table-content .apply-form .apply-form-container {
+    width: 100%;
+    margin-left: 20px;
+  }
+  .apply-table-content .apply-form .apply-form-container .ant-row {
+    width: 90%;
+  }
+  .apply-table-content .apply-form .apply-form-container .btn {
+    margin-left: 52%;
+  }
+}
+/*# sourceMappingURL=./ApplyTable.css.map */

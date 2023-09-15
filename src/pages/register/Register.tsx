@@ -56,6 +56,7 @@ const Register: React.FC = function () {
   }
   const handleSendCode = async()=>{
     if(isSending || countdown>0 || emailValue==''){
+      message.error('请先填写邮箱')
       return;
     }
     setIsSending(true)
@@ -116,23 +117,22 @@ const Register: React.FC = function () {
           scrollToFirstError
           className="apply-form-container"
         >
-          <Form.Item style={{ display: 'block', width: '100%', paddingLeft: '43%', marginBottom: '2%', cursor: 'pointer' }}>
+          <div className='text' style={{display:'block',width:'100%', marginBottom: '2%', cursor: 'pointer' }}>
             <Tooltip title="用于登录的信息，请认真填写！">
-              <h2>用户登录信息</h2>
+              <h2 style={{textAlign:'center'}}>用户登录信息</h2>
             </Tooltip>
-          </Form.Item>
+          </div>
           <Form.Item
             name="username"
             label="用户名"
-            style={{ width: '50%' }}
             rules={[{ required: true, message: '请输入你的用户名！', whitespace: true }]}
+            className='form-item'
           >
-            <Input maxLength={30} />
+            <Input/>
           </Form.Item>
           <Form.Item
             name="password"
             label="密码"
-            style={{ width: '50%' }}
             rules={[{ required: true, message: '请输入你的密码！', whitespace: true }]}
           >
             <Input.Password maxLength={30} />
@@ -141,7 +141,6 @@ const Register: React.FC = function () {
             name="email"
             label="E-mail"
             tooltip="邮箱用来接收面试结果，请认真填写"
-            style={{ width: '50%' }}
             rules={[
               {
                 type: 'email',
@@ -155,10 +154,10 @@ const Register: React.FC = function () {
           >
             <Input maxLength={30} onChange={handleEmailChange} />
           </Form.Item>
-          <Form.Item label="验证码" style={{ width: '50%' }} required>
-            <Input.Group compact >
+          <Form.Item label="验证码" required>
+            <Input.Group compact className='code-group'>
               <Form.Item
-                style={{ width: '60%' }}
+
                 name="code"
                 rules={[
                   {
@@ -166,30 +165,30 @@ const Register: React.FC = function () {
                     message: '请输入验证码!',
                   },
                 ]}
+                className='code-item'
               >
                 <Input placeholder="验证码"/>
               </Form.Item>
               <Button
-                style={{ width: '40%', paddingLeft: '5%' }}
                 type="primary"
               onClick={handleSendCode}
                 loading={isSending}
                 disabled={isSending}
+                className='code-btn'
               >
                 {isSending ? `发送中...` : countdown > 0 ? `${countdown}秒后重试` : '发送验证码'}
               </Button>
             </Input.Group>
           </Form.Item>
-          <Form.Item style={{ display: 'block', width: '100%', paddingLeft: '43%', marginBottom: '2%', cursor: 'pointer' }}>
+          <div style={{ display: 'block', width: '100%', marginBottom: '2%', cursor: 'pointer' }}>
             <Tooltip title="用于后续报名的信息，请认真填写！">
-              <h2>个人信息完善</h2>
+              <h2 style={{textAlign:'center'}}>个人信息完善</h2>
             </Tooltip>
-          </Form.Item>
+          </div>
           <Form.Item
             name="name"
             label="姓名"
             tooltip="What do you want others to call you?"
-            style={{ width: '50%' }}
             rules={[{ required: true, message: '请输入你的姓名！', whitespace: true }]}
           >
             <Input maxLength={30} />
@@ -198,7 +197,6 @@ const Register: React.FC = function () {
           <Form.Item
             name="sex"
             label="性别"
-            style={{ width: '50%' }}
             rules={[{ required: true, message: '请选择你的性别!' }]}
           >
             <Select placeholder="你是GG还是MM">
@@ -207,7 +205,6 @@ const Register: React.FC = function () {
             </Select>
           </Form.Item>
           <Form.Item
-            style={{ width: '50%' }}
             name="birthday"
             label="生日"
             rules={[
@@ -220,14 +217,12 @@ const Register: React.FC = function () {
             <DatePicker
               format={dateFormat}
               placeholder="选择生日"
-              style={{ width: '100%' }}
             />
           </Form.Item>
 
           <Form.Item
             name="phone"
             label="电话号码"
-            style={{ width: '50%' }}
             rules={[{ required: true, message: '请输入你的手机号!' }]}
           >
             <Input
@@ -236,7 +231,6 @@ const Register: React.FC = function () {
           <Form.Item
             name="qq"
             label="qq"
-            style={{ width: '50%' }}
             rules={[{ required: true, message: '请输入你的qq号!' }]}
           >
             <Input/>
@@ -244,7 +238,6 @@ const Register: React.FC = function () {
           <Form.Item
             name="studentId"
             label="学号"
-            style={{ width: '50%' }}
             rules={[{ required: true, message: '请输入你的学号!' }]}
           >
             <Input minLength={13} maxLength={20} />
@@ -253,7 +246,6 @@ const Register: React.FC = function () {
           <Form.Item
             name="faculty"
             label="学院"
-            style={{ width: '50%' }}
             rules={[{ required: true, message: '请选择你所在的学院!' }]}
           >
             <Select placeholder="选择你所在的学院" onChange={handleFacultyChange}>
@@ -267,7 +259,6 @@ const Register: React.FC = function () {
           <Form.Item
             name="subject"
             label="专业"
-            style={{ width: '50%' }}
             rules={[{ required: true, message: '请选择你所在的专业!' }]}
           >
             <Select placeholder="选择你所在的专业">
@@ -281,7 +272,6 @@ const Register: React.FC = function () {
           <Form.Item
             name="className"
             label="班级"
-            style={{ width: '50%' }}
             rules={[{ required: true, message: '请输入你所在的班级!' }]}
           >
             <Input maxLength={20} />
@@ -289,7 +279,6 @@ const Register: React.FC = function () {
           <Form.Item
             name="nationality"
             label="民族"
-            style={{ width: '50%' }}
             rules={[{ required: true, message: '请输入你的民族名称!' }]}
           >
             <Input maxLength={10} />

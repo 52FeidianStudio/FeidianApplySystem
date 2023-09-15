@@ -1,0 +1,61 @@
+.register-content {
+  width: 80%;
+  height: 100vh;
+}
+@media only screen and (max-width: 500px) {
+  .register-content {
+    height: 165vh;
+    width: 90%;
+  }
+}
+.register-content .register-box {
+  width: 780px;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+.register-content .register-box .logo {
+  width: 70px;
+  height: 70px;
+  margin: 50px calc((100% - 70px)/2);
+  margin-bottom: 10px;
+}
+@media only screen and (max-width: 500px) {
+  .register-content .register-box .logo {
+    width: 60px;
+    height: 60px;
+    margin: 30px calc((100% - 70px)/2);
+    margin-bottom: 0px;
+  }
+}
+.register-content .register-box .apply-form-container .ant-form-item {
+  width: 50%;
+}
+@media only screen and (max-width: 500px) {
+  .register-content .register-box .apply-form-container .ant-form-item {
+    margin-left: 10%;
+    margin-bottom: 3%;
+    width: 80%;
+  }
+  .register-content .register-box .apply-form-container .ant-form-item .ant-form-item {
+    margin-left: 0;
+  }
+  .register-content .register-box .apply-form-container .ant-form-item .code-group {
+    width: 80%;
+    display: flex;
+    margin-left: 0;
+  }
+  .register-content .register-box .apply-form-container .ant-form-item .code-group .code-item {
+    width: 60%;
+  }
+  .register-content .register-box .apply-form-container .ant-form-item .code-group .code-btn {
+    width: 40%;
+  }
+}
+.register-content .register-box .apply-form-container .ant-form-item .code-item {
+  width: 60%;
+}
+.register-content .register-box .apply-form-container .ant-form-item .code-btn {
+  width: 40%;
+}
+/*# sourceMappingURL=./Register.css.map */

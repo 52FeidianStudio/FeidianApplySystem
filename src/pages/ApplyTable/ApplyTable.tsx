@@ -339,7 +339,7 @@ const ApplyTable: React.FC = () => {
               <Button style={{ marginBottom: "50px" }} type="primary" htmlType="submit">
                 发送申请
               </Button>
-              <Button style={{ marginBottom: "50px", marginLeft: '73%' }} type="primary" onClick={() => { localStorage.setItem("token", ''); navigate("/") }}>
+              <Button className="btn" style={{ marginBottom: "50px" }} type="primary" htmlType="submit" onClick={() => { localStorage.setItem("token", ''); navigate("/") }}>
                 退出
               </Button>
             </Form.Item>
