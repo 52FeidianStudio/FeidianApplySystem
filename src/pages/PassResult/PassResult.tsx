@@ -48,8 +48,6 @@ const PassResult: React.FC = () => {
                         <Button onClick={logout} type="primary" key="logout">
                             退出登录
                         </Button>,
-                        <Button onClick={() => { navigate("/apply") }
-                        } key="change" disabled={state == "pass" ? true : false}>修改申请</Button>,
                         <Button onClick={() => { window.open("http://182.254.242.96/") }} type='primary'>进入官网</Button>
                     ]}
                 />
