@@ -12,7 +12,7 @@
   margin-top: 30px;
   position: relative;
 
-  @media only screen and (max-width:800px) {
+  @media only screen and (max-width:500px) {
     width: 90%;
   }
 
@@ -21,7 +21,7 @@
     height: 100px;
     position: relative;
 
-    @media only screen and (max-width:800px) {
+    @media only screen and (max-width:500px) {
       height: 50px;
       position: relative;
       text-align: center;
@@ -40,7 +40,7 @@
         width: 80px;
         height: 80px;
 
-        @media only screen and (max-width:800px) {
+        @media only screen and (max-width:500px) {
           line-height: 60px;
           width: 60px;
           height: 60px;
@@ -54,7 +54,7 @@
         height: 30px;
         font-weight: 300;
 
-        @media only screen and (max-width:800px) {
+        @media only screen and (max-width:500px) {
           line-height: 60px;
           font-size: 25px;
         }
@@ -74,19 +74,22 @@
         width: 100%;
       }
 
-      .btn{
-        margin-left: 73%;
+      // .btn{
+      //   margin-left: 73%;
+      // }
+      .btns{
+        .ant-form-item-control-input-content{
+          display: flex;
+          justify-content: space-between;
+        }
       }
 
-      @media only screen and (max-width:800px) {
+      @media only screen and (max-width:500px) {
         width: 100%;
         margin-left: 20px;
 
         .ant-row {
           width: 90%;
-        }
-        .btn{
-          margin-left:52%;
         }
       }
     }

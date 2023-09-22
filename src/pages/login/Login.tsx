@@ -69,6 +69,10 @@ const Login: React.FC = function () {
     const toChangePassword = () => {
         navigate("/forget")
     }
+    const toOwe = () => {
+        //跳转网页
+        window.open("http://182.254.242.96/")
+    }
     return (
         <div className="login-content flex-center margin-center">
             <div className="login-box">
@@ -88,6 +92,7 @@ const Login: React.FC = function () {
                 <Button onClick={LoginMethod} className="login-button" type="primary" size="large">登录</Button>
                 <div className="tips">
                     <div onClick={toRegister} className="tips-register" style={{cursor:'pointer'}}>点此注册</div>
+                    <div onClick={toOwe} className='tips-register' style={{cursor:'pointer'}}>进入官网</div>
                     <div onClick={toChangePassword} className="tips-forget" style={{cursor:'pointer'}}>忘记密码</div>
                 </div>
             </div>

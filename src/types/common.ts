@@ -19,7 +19,6 @@ export interface RegisterInfoType  {
     birthday:any
 }
 export interface NewPasswordType  {
-    username:string,
     password:string,
     code:string,
     email:string
@@ -30,7 +29,8 @@ export interface UserInfotype {
     username?:string,
     studentId?:string,
     grade?:string,
-    faculty?:string
+    facultyName?:string,
+    subjectName?:string,
     className?:string,
     name?:string,
     sex?:string,
@@ -47,6 +47,7 @@ export interface UserInfotype {
     arrangement?:string,
     direction?:string
     registerId?:string,
+    avatarUrl?:string,
 }
 export interface TabsType{
     key:string,

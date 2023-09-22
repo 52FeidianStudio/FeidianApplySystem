@@ -8,7 +8,6 @@ import apis from "../../network/apis";
 import { useNavigate } from "react-router-dom";
 const Login: React.FC = function () {
     const NewPassword: NewPasswordType = {
-        username: '',
         password: '',
         code: '',
         email: '',
@@ -24,7 +23,7 @@ const Login: React.FC = function () {
         let res = await apis.ChangePassword(form);
         notification.open({
             message: res.data.message,
-            description: "change successfully.Please login!.",
+            description: "密码修改成功，可以登录了！",
             icon: <SmileOutlined style={{ color: '#108ee9' }} />,
         });
         navigate("/login");
@@ -32,7 +31,7 @@ const Login: React.FC = function () {
     };
     let [buttonState, setButtomState] = useState(false)
     const GetCode = async () => {
-        let res = await apis.SendCode({ username: form.username, email: form.email });
+        let res = await apis.SendCode({ email: form.email });
         messageApi.info('验证码已发送，请查看邮箱邮件,60s内只能发送一次');
         setButtomState(true);
         setTimeout(() => {
@@ -49,13 +48,6 @@ const Login: React.FC = function () {
             <div className="login-box">
                 <img className="logo" src={LogoUrl} />
                 <div className="input-content">
-                    <Input style={{ marginBottom: "20px" }}
-                        size="large" placeholder="用户名"
-                        prefix={<UserOutlined />} name="username"
-                        value={form.username}
-                        onChange={handleChange}
-                        maxLength={20}
-                    />
                     {/* 写一个邮箱的输入框 */}
                     <Input style={{ marginBottom: "20px" }}
                         size="large" placeholder="邮箱"
@@ -91,7 +83,7 @@ const Login: React.FC = function () {
                     />
                 </div>
                 <Button onClick={ChangePasswordMethod} className="change-button" type="primary" size="large">修改</Button>
-                <div onClick={toLogin} className="tips">点此登录</div>
+                <div style={{width:"100%"}} className='to-login'><div onClick={toLogin} className="tips">点此登录</div></div>
             </div>
         </div>
     );

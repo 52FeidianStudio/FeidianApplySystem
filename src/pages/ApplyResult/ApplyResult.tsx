@@ -31,7 +31,7 @@ const ApplyResult: React.FC = () => {
                             退出登录
                         </Button>,
                         <Button onClick={() => { navigate("/pass_result") }
-                        } key="resu;t">结果查询</Button>,
+                        } key="result">结果查询</Button>,
                         <Button onClick={() => { navigate("/apply") }
                         } key="change">修改申请</Button>,
                     ]}

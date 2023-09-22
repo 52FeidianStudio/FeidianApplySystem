@@ -54,6 +54,14 @@ const apis = {
             method:"GET"
         })
     },
+    //修改用户个人信息
+    ChangeSingleApplyinfo(data:any){
+        return request({
+            url:"/user/updateRegister",
+            method:"POST",
+            data:data
+        })
+    },
     //获取用户报名信息
     GetSelfApplyinfo(){
       return request({
@@ -86,14 +94,22 @@ const apis = {
     GetAllFaculty(){
         return request({
             url:"/faculty/getAllName",
-            method:"GET"
+            method:"GET",
+            headers:{
+              Authorization:null,
+              Token:null
+            }
         })
     },
     GetAllSubjectsByFaculty(data:any){
       return request({
         url:'/subject/getSubjectNameByFaculty',
         method:'GET',
-        params:data
+        params:data,
+        headers:{
+          Authorization:null,
+          Token:null
+        }
       })
     },
     SendEmail(data:any)

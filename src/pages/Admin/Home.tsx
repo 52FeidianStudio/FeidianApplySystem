@@ -148,11 +148,14 @@ const AdminHome: React.FC = () => {
           "registerId": +item.registerId!,
           "isApprovedFlag": type == "pass" ? "2" : "3",
           "emailContent": type == "pass" ? `${item.name}同学: \n\t` + passMessage : `${item.name}同学: \n\t` + outMessage
-        }).then((res) => {
-          if (res.data.message == "成功修改报名表状态为已通过，并将其添加至预备成员") {
-            item.loading = false;
-            setList([...list]);
-          }
+        }).then( async (res) => {
+          // if (res.data.message == "成功修改报名表状态为已通过，并将其添加至预备成员") {
+          //   item.loading = false;
+          //   setList([...list]);
+          // }
+          let list = await apis.GetAllApplyInfo({ 'queryAllFlag': 0 });
+          setList(list.data.data);
+          item.loading = false;
         });
       }
     }
@@ -173,13 +176,13 @@ const AdminHome: React.FC = () => {
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
     if(e.keyPath[1]=="专业"){
-      console.log({ 'desireDepartmentId': e.keyPath[0],'subjectId':e.keyPath[2]})
-      const selectInfo = {'desireDepartmentId': e.keyPath[0],'subjectId':e.keyPath[2]};
+      console.log({ 'desireDepartmentId': e.keyPath[2],'subjectId':e.keyPath[0]})
+      const selectInfo = {'desireDepartmentId': e.keyPath[2],'subjectId':e.keyPath[0]};
       getSelectInfo(selectInfo);
     }
     else if(e.keyPath[1]=="年级"){
-      console.log({ 'desireDepartmentId': e.keyPath[0],'gradeName':e.keyPath[2]})
-      const selectInfo = {'desireDepartmentId': e.keyPath[0],'gradeName':e.keyPath[2]};
+      console.log({ 'desireDepartmentId': e.keyPath[2],'gradeName':e.keyPath[0]})
+      const selectInfo = {'desireDepartmentId': e.keyPath[2],'gradeName':e.keyPath[0]};
       getSelectInfo(selectInfo);
     }
     
@@ -234,14 +237,16 @@ const AdminHome: React.FC = () => {
                     showUserInfo(item);
                   }
                   }>more</a>,
-                  <Switch
+                  item.status=="0"?(<Switch 
                     checked={item.selected}
                     loading={item.loading}
-                    size="small"
+                    size="default"
                     onChange={(value) => {
                       SingleSelect(value, index);
                     }}
-                  />,]}
+                  />):item.status=="2"?(<Button type="primary" size="small" >已通过</Button>):(<Button type="primary" danger size="small">未通过</Button>)
+                  ,
+                  ]}
                 >
                   <List.Item.Meta
                     avatar={<Avatar src={item.imgUrl} />}

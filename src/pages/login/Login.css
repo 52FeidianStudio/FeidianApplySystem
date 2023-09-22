@@ -1,0 +1,73 @@
+.login-content {
+  width: 80%;
+  height: 100vh;
+}
+@media only screen and (max-width: 500px) {
+  .login-content {
+    width: 90%;
+  }
+}
+.login-content .login-box {
+  width: 480px;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+.login-content .login-box .logo {
+  width: 70px;
+  height: 70px;
+  margin: 50px calc((100% - 70px)/2);
+  margin-bottom: 10px;
+}
+@media only screen and (max-width: 500px) {
+  .login-content .login-box .logo {
+    width: 60px;
+    height: 60px;
+  }
+}
+.login-content .login-box .input-content {
+  width: calc(100% - 50px * 2);
+  height: calc(100% - 50px * 2);
+  margin: 20px 50px 0 50px;
+}
+@media only screen and (max-width: 500px) {
+  .login-content .login-box .input-content {
+    width: calc(100% - 30px * 2);
+    height: calc(100% - 30px * 2);
+    margin: 20px 30px 0 30px;
+  }
+}
+.login-content .login-box .tips {
+  width: calc(100% - 50px * 2);
+  margin: 0 50px 0 50px;
+  display: flex;
+  justify-content: space-between;
+}
+@media only screen and (max-width: 500px) {
+  .login-content .login-box .tips {
+    width: calc(100% - 30px * 2);
+    height: calc(100% - 30px * 2);
+    margin: 0 30px 0 30px;
+  }
+}
+.login-content .login-box .tips-register,
+.login-content .login-box .tips-forget {
+  line-height: 60px;
+  color: grey;
+  display: inline-block;
+}
+.login-content .login-box .tips-register:hover,
+.login-content .login-box .tips-forget:hover {
+  color: #1677ff;
+}
+.login-content .login-box .login-button {
+  margin: 20px 50px 20px 50px;
+  width: calc(100% - 100px);
+}
+@media only screen and (max-width: 500px) {
+  .login-content .login-box .login-button {
+    margin: 20px 30px 20px 30px;
+    width: calc(100% - 60px);
+  }
+}
+/*# sourceMappingURL=./Login.css.map */

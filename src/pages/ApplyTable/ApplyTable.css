@@ -10,7 +10,7 @@
   margin-top: 30px;
   position: relative;
 }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 500px) {
   .apply-table-content {
     width: 90%;
   }
@@ -20,7 +20,7 @@
   height: 100px;
   position: relative;
 }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 500px) {
   .apply-table-content .feidian-logo {
     height: 50px;
     position: relative;
@@ -40,7 +40,7 @@
   width: 80px;
   height: 80px;
 }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 500px) {
   .apply-table-content .feidian-logo .feidian-logo-content img {
     line-height: 60px;
     width: 60px;
@@ -54,7 +54,7 @@
   height: 30px;
   font-weight: 300;
 }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 500px) {
   .apply-table-content .feidian-logo .feidian-logo-content .title {
     line-height: 60px;
     font-size: 25px;
@@ -71,19 +71,17 @@
 .apply-table-content .apply-form .apply-form-container .ant-row {
   width: 100%;
 }
-.apply-table-content .apply-form .apply-form-container .btn {
-  margin-left: 73%;
+.apply-table-content .apply-form .apply-form-container .btns .ant-form-item-control-input-content {
+  display: flex;
+  justify-content: space-between;
 }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 500px) {
   .apply-table-content .apply-form .apply-form-container {
     width: 100%;
     margin-left: 20px;
   }
   .apply-table-content .apply-form .apply-form-container .ant-row {
     width: 90%;
-  }
-  .apply-table-content .apply-form .apply-form-container .btn {
-    margin-left: 52%;
   }
 }
 /*# sourceMappingURL=./ApplyTable.css.map */

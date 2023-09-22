@@ -40,17 +40,86 @@ const tailFormItemLayout = {
     },
   },
 };
+const nationalityOptions = [
+  '白族',
+  '保安族',
+  '布朗族',
+  '布依族',
+  '朝鲜族',
+  '达斡尔族',
+  '傣族',
+  '德昂族',
+  '东乡族',
+  '侗族',
+  '独龙族',
+  '俄罗斯族',
+  '鄂伦春族',
+  '鄂温克族',
+  '高山族',
+  '仡佬族',
+  '哈尼族',
+  '哈萨克族',
+  '汉族',
+  '赫哲族',
+  '回族',
+  '基诺族',
+  '京族',
+  '景颇族',
+  '柯尔克孜族',
+  '拉祜族',
+  '黎族',
+  '傈僳族',
+  '珞巴族',
+  '满族',
+  '毛南族',
+  '门巴族',
+  '蒙古族',
+  '苗族',
+  '仫佬族',
+  '纳西族',
+  '怒族',
+  '普米族',
+  '羌族',
+  '撒拉族',
+  '畲族',
+  '水族',
+  '塔吉克族',
+  '塔塔尔族',
+  '土家族',
+  '土族',
+  '佤族',
+  '维吾尔族',
+  '乌兹别克族',
+  '锡伯族',
+  '瑶族',
+  '彝族',
+  '裕固族',
+  '藏族',
+  '壮族',
+  '仡佬族'
+];
 
 const ApplyTable: React.FC = () => {
   const [form] = Form.useForm();
-  const [isDisabled, setIsDisabled] = useState(false);
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
+  const [facultys, setFacultys] = useState([])
+  const [subjects, setSubjects] = useState([])
   const [isCommited, setIsCommited] = useState(false);
   const [imgUploadState, setImgUploadState] = useState(false);
+  const [subject, setSubject] = useState('')
   // 后端有接口，所以要尝试从后端获取preForm
   let [preForm, SetPreForm] = useState<UserInfotype>();
-  let demo = {};
+  const handleFacultyChange = async (value: string, option: any) => {
+    let res = await apis.GetAllSubjectsByFaculty({ name: value })
+    form.setFieldsValue({ subjectName: '' });
+    setSubjects(res.data.data)
+  }
+  useRequest(apis.GetAllFaculty, {
+    onSuccess: (res) => {
+      setFacultys(res.data.data)
+    }
+  })
   useRequest(apis.GetSingleApplyinfo, {
     onSuccess: async (res) => {
       let userInfo: any = res.data.data;
@@ -58,28 +127,29 @@ const ApplyTable: React.FC = () => {
       if (userInfo.status != '0' && userInfo.status != null) {
         navigate("/pass_result");
         message.info("当前已无法修改申请，面试结果已出！")
-      }else if(userInfo.status == '0'){
+      } else if (userInfo.status == '0') {
         setIsCommited(true);
         const res = await apis.GetSelfApplyinfo();
         console.log(res);
         const fetchData = { ...res.data.data, ...userInfo.frontUserVO };
-        fetchData.department=fetchData.desireDepartmentName;
+        fetchData.department = fetchData.desireDepartmentName;
         SetPreForm(fetchData);
         setImgUploadState(true)
-      }else{
+      } else {
         SetPreForm(userInfo.frontUserVO);
       }
+      console.log(preForm);
+      let faculty = userInfo.frontUserVO.facultyName;
+      let subjects = await apis.GetAllSubjectsByFaculty({ name: faculty })
+      setSubjects(subjects.data.data)
     }
   });
-  useEffect( () => {
+  useEffect(() => {
     if (!localStorage.getItem('token')) {
       message.error("请先登录")
       navigate('/')
     }
-    if (preForm) {
-      setIsDisabled(true)
-    }
-  }, [preForm])
+  })
   // //判断图片是否上传
   // const uploadCallBack = (e: any) => {
   //   console.log(e);
@@ -134,23 +204,24 @@ const ApplyTable: React.FC = () => {
       message.error("请上传图片")
     }
     else {
-      if(!isCommited){
+      if (!isCommited) {
         values.desireDepartmentId = parseInt(values.department!)
         console.log(values);
-        await apis.SendApplication({ resume: values.resume, reason: values.reason, arrangement: values.arrangement, direction: values.direction,desireDepartmentId:values.desireDepartmentId } as UserInfotype);
-      }else{
-        // if(values.department!=preForm?.desireDepartmentId){
-        //   values.desireDepartmentId = parseInt(values.department!)
-        // } else{
-        //   values.desireDepartmentId = preForm?.desireDepartmentId
-        // }
-        if(values.department=="1"||values.department=="2"||values.department=="3"||values.department=="4"){
+        await Promise.all([
+          apis.SendApplication({ resume: values.resume, reason: values.reason, arrangement: values.arrangement, direction: values.direction, desireDepartmentId: values.desireDepartmentId } as UserInfotype),
+          apis.ChangeSingleApplyinfo({ name: values.name, sex: values.sex, phone: values.phone, email: values.email, studentId: values.studentId, facultyName: values.facultyName, subjectName: values.subjectName, className: values.className, nationality: values.nationality })
+        ])
+      } else {
+        if (values.department == "1" || values.department == "2" || values.department == "3" || values.department == "4") {
           values.desireDepartmentId = parseInt(values.department!)
-        }else{
+        } else {
           values.desireDepartmentId = 1
         }
         console.log(values);
-        await apis.SendApplicationAgain({ resume: values.resume, reason: values.reason, arrangement: values.arrangement, direction: values.direction,desireDepartmentId:values.desireDepartmentId } as UserInfotype);
+        await Promise.all([
+          apis.SendApplicationAgain({ resume: values.resume, reason: values.reason, arrangement: values.arrangement, direction: values.direction, desireDepartmentId: values.desireDepartmentId } as UserInfotype),
+          apis.ChangeSingleApplyinfo({ name: values.name, sex: values.sex, phone: values.phone, email: values.email, studentId: values.studentId, facultyName: values.facultyName, subjectName: values.subjectName, className: values.className, nationality: values.nationality })
+        ])
       }
       message.info("申请提交成功！")
       navigate("/apply_result")
@@ -193,17 +264,17 @@ const ApplyTable: React.FC = () => {
           >
             {/* TODO:上传照片给后端 */}
             <Form.Item label="上传照片" name="imgUrl">
-              <Upload 
+              <Upload
                 listType="picture-card"
                 accept=".png,.jpg,.jpeg"
                 // onChange={uploadCallBack}
                 maxCount={1}
-                defaultFileList={preForm.imgUrl?[{
+                defaultFileList={preForm.imgUrl ? [{
                   uid: '-1',
                   name: 'image.png',
                   status: 'done',
                   url: preForm.imgUrl,
-                }]:[]
+                }] : []
                 }
                 beforeUpload={beforeUpload}>
                 <div>
@@ -218,7 +289,7 @@ const ApplyTable: React.FC = () => {
               tooltip="What do you want others to call you?"
               rules={[{ required: true, message: '请输入你的姓名！', whitespace: true }]}
             >
-              <Input maxLength={30} disabled={isDisabled} />
+              <Input maxLength={30} />
             </Form.Item>
 
             <Form.Item
@@ -226,10 +297,9 @@ const ApplyTable: React.FC = () => {
               label="性别"
               rules={[{ required: true, message: '请选择你的性别!' }]}
             >
-              <Select placeholder="你是GG还是MM" disabled={isDisabled}>
-                <Option value="男性">男性</Option>
-                <Option value="女性">女性</Option>
-                <Option value="其他">其他</Option>
+              <Select placeholder="你是GG还是MM">
+                <Option value="男">男</Option>
+                <Option value="女">女</Option>
               </Select>
             </Form.Item>
 
@@ -240,7 +310,7 @@ const ApplyTable: React.FC = () => {
               rules={[{ required: true, message: '请输入你的手机号!' }]}
             >
               <Input
-                style={{ width: '100%' }} minLength={11} maxLength={15} disabled={isDisabled} />
+                style={{ width: '100%' }} minLength={11} maxLength={15} />
             </Form.Item>
 
 
@@ -259,7 +329,7 @@ const ApplyTable: React.FC = () => {
                 },
               ]}
             >
-              <Input maxLength={30} disabled={isDisabled} />
+              <Input maxLength={30} />
             </Form.Item>
 
             <Form.Item
@@ -267,24 +337,54 @@ const ApplyTable: React.FC = () => {
               label="学号"
               rules={[{ required: true, message: '请输入你的学号!' }]}
             >
-              <Input minLength={13} maxLength={20} style={{ width: '100%' }} disabled={isDisabled} />
+              <Input minLength={13} maxLength={20} style={{ width: '100%' }} />
             </Form.Item>
-
 
             <Form.Item
               name="facultyName"
-              label="院系"
-              rules={[{ required: true, message: '请输入你所在的学院!' }]}
+              label="学院"
+              rules={[{ required: true, message: '请选择你所在的学院!' }]}
             >
-              <Input maxLength={20} style={{ width: '100%' }} disabled={isDisabled} />
+              <Select placeholder="选择你所在的学院" onChange={handleFacultyChange}>
+                {facultys.map((faculty) => (
+                  <option key={faculty} value={faculty}>
+                    {faculty}
+                  </option>
+                ))}
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              name="subjectName"
+              label="专业"
+              dependencies={['facultyName']}
+              rules={[
+                { required: true, message: '请选择你所在的专业!' },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (getFieldValue('facultyName') && !value) {
+                      return Promise.reject(new Error('请选择你所在的专业!'));
+                    }
+                    return Promise.resolve();
+                  },
+                }),
+              ]}
+            >
+              <Select placeholder="选择你所在的专业" value={subject}>
+                {subjects.map((subject) => (
+                  <option value={subject} key={subject}>
+                    {subject}
+                  </option>
+                ))}
+              </Select>
             </Form.Item>
 
             <Form.Item
               name="className"
-              label="班级"
-              rules={[{ required: true, message: '请输入你所在的班级!' }]}
+              label="班级(例：2301)"
+              rules={[{ required: true, message: '请输入你所在的班级!' }, { pattern: /^\d{4}$/, message: '请输入正确的班级' }]}
             >
-              <Input maxLength={20} style={{ width: '100%' }} disabled={isDisabled} />
+              <Input maxLength={20} style={{ width: '100%' }} />
             </Form.Item>
 
             <Form.Item
@@ -292,7 +392,20 @@ const ApplyTable: React.FC = () => {
               label="民族"
               rules={[{ required: true, message: '请输入你的民族名称!' }]}
             >
-              <Input maxLength={10} style={{ width: '100%' }} disabled={isDisabled} />
+              <Select
+                showSearch
+                optionFilterProp='children'
+                filterOption={(input, option) =>
+                  String(option?.children).toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
+                placeholder="请选择你的民族"
+              >
+                {nationalityOptions.map((nationality) => (
+                  <Option key={nationality} value={nationality}>
+                    {nationality}
+                  </Option>
+                ))}
+              </Select>
             </Form.Item>
 
             <Form.Item
@@ -335,7 +448,7 @@ const ApplyTable: React.FC = () => {
             >
               <Input.TextArea showCount maxLength={300} />
             </Form.Item>
-            <Form.Item {...tailFormItemLayout}>
+            <Form.Item {...tailFormItemLayout} className="btns">
               <Button style={{ marginBottom: "50px" }} type="primary" htmlType="submit">
                 发送申请
               </Button>

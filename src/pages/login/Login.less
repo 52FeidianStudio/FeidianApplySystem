@@ -40,8 +40,17 @@
     }
 
     .tips {
-      width: 100%;
-
+      @inputMargin: 50px;
+      width: calc(100% - @inputMargin * 2);
+      margin: 0 @inputMargin 0 @inputMargin;
+      display: flex;
+      justify-content: space-between;
+      @media only screen and (max-width:500px) {
+        @inputMargin: 30px;
+        width: calc(100% - @inputMargin * 2);
+        height: calc(100% - @inputMargin * 2);
+        margin: 0 @inputMargin 0 @inputMargin;
+      }
       &-register,
       &-forget {
         line-height: 60px;
@@ -54,15 +63,15 @@
         color: #1677ff;
       }
 
-      &-register {
-        float: left;
-        margin-left: 50px;
-      }
+      // &-register {
+      //   float: left;
+      //   margin-left: 50px;
+      // }
 
-      &-forget {
-        float: right;
-        margin-right: 50px;
-      }
+      // &-forget {
+      //   float: right;
+      //   margin-right: 50px;
+      // }
     }
 
     .login-button {

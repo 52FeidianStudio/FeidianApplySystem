@@ -32,6 +32,64 @@ const tailFormItemLayout = {
     },
   },
 };
+const nationalityOptions = [
+  '白族',
+  '保安族',
+  '布朗族',
+  '布依族',
+  '朝鲜族',
+  '达斡尔族',
+  '傣族',
+  '德昂族',
+  '东乡族',
+  '侗族',
+  '独龙族',
+  '俄罗斯族',
+  '鄂伦春族',
+  '鄂温克族',
+  '高山族',
+  '仡佬族',
+  '哈尼族',
+  '哈萨克族',
+  '汉族',
+  '赫哲族',
+  '回族',
+  '基诺族',
+  '京族',
+  '景颇族',
+  '柯尔克孜族',
+  '拉祜族',
+  '黎族',
+  '傈僳族',
+  '珞巴族',
+  '满族',
+  '毛南族',
+  '门巴族',
+  '蒙古族',
+  '苗族',
+  '仫佬族',
+  '纳西族',
+  '怒族',
+  '普米族',
+  '羌族',
+  '撒拉族',
+  '畲族',
+  '水族',
+  '塔吉克族',
+  '塔塔尔族',
+  '土家族',
+  '土族',
+  '佤族',
+  '维吾尔族',
+  '乌兹别克族',
+  '锡伯族',
+  '瑶族',
+  '彝族',
+  '裕固族',
+  '藏族',
+  '壮族',
+  '仡佬族'
+];
 const Register: React.FC = function () {
   //用户注册函数
   const navigate = useNavigate();
@@ -257,7 +315,7 @@ const Register: React.FC = function () {
             </Select>
           </Form.Item>
           <Form.Item
-            name="subject"
+            name="subjectName"
             label="专业"
             rules={[{ required: true, message: '请选择你所在的专业!' }]}
           >
@@ -271,8 +329,8 @@ const Register: React.FC = function () {
           </Form.Item>
           <Form.Item
             name="className"
-            label="班级"
-            rules={[{ required: true, message: '请输入你所在的班级!' }]}
+            label="班级(例：2301)"
+            rules={[{ required: true, message: '请输入你所在的班级!' },{pattern:/^\d{4}$/,message:'请输入正确的班级'}]}
           >
             <Input maxLength={20} />
           </Form.Item>
@@ -281,7 +339,20 @@ const Register: React.FC = function () {
             label="民族"
             rules={[{ required: true, message: '请输入你的民族名称!' }]}
           >
-            <Input maxLength={10} />
+            <Select
+              showSearch
+              optionFilterProp='children'
+              filterOption={(input, option) =>
+                String(option?.children).toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              placeholder="请选择你的民族"
+            >
+              {nationalityOptions.map((nationality)=>(
+                <Option key={nationality} value={nationality}>
+                  {nationality}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
           <Form.Item {...tailFormItemLayout} style={{ width: '100%' }}>
             <Button type="primary" htmlType="submit">
