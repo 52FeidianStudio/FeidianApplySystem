@@ -59,4 +59,14 @@
 .register-content .register-box .apply-form-container .ant-form-item .code-btn {
   width: 40%;
 }
+.register-content .register-box .sign-btn {
+  width: 150px;
+  margin-left: -68px;
+}
+@media only screen and (max-width: 500px) {
+  .register-content .register-box .sign-btn {
+    width: 30%;
+    margin-left: 0px;
+  }
+}
 /*# sourceMappingURL=./Register.css.map */

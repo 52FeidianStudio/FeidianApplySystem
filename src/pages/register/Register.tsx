@@ -306,7 +306,15 @@ const Register: React.FC = function () {
             label="学院"
             rules={[{ required: true, message: '请选择你所在的学院!' }]}
           >
-            <Select placeholder="选择你所在的学院" onChange={handleFacultyChange}>
+            <Select 
+              placeholder="选择你所在的学院" 
+              onChange={handleFacultyChange}
+              showSearch
+              optionFilterProp='children'
+              filterOption={(input, option) =>
+                String(option?.children).toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              >
               {facultys.map((faculty)=>(
                 <option key={faculty} value={faculty}>
                   {faculty}
@@ -319,7 +327,14 @@ const Register: React.FC = function () {
             label="专业"
             rules={[{ required: true, message: '请选择你所在的专业!' }]}
           >
-            <Select placeholder="选择你所在的专业">
+            <Select 
+              placeholder="选择你所在的专业"
+              showSearch
+              optionFilterProp='children'
+              filterOption={(input, option) =>
+                String(option?.children).toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
               {subjects.map((subject)=>(
                 <option value={subject} key={subject}>
                   {subject}
@@ -355,10 +370,10 @@ const Register: React.FC = function () {
             </Select>
           </Form.Item>
           <Form.Item {...tailFormItemLayout} style={{ width: '100%' }}>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" className='sign-btn'>
               注册
             </Button>
-            <div onClick={toLogin} className="tips" style={{ display: 'inline', marginLeft: '30%', cursor: 'pointer' }}>已有账号点此登录</div>
+            <div onClick={toLogin} className="tips" style={{ display: 'inline', marginLeft: '21%', cursor: 'pointer' }}>已有账号点此登录</div>
           </Form.Item>
         </Form>
       </div>
