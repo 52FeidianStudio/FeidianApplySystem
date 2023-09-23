@@ -4,8 +4,9 @@
 }
 @media only screen and (max-width: 500px) {
   .register-content {
-    height: 175vh;
+    height: 100%;
     width: 90%;
+    overflow: scroll;
   }
 }
 .register-content .register-box {

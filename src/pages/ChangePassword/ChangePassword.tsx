@@ -68,7 +68,7 @@ const Login: React.FC = function () {
                                 maxLength={6}
                                 style={{ width:"63%" }}
                             />
-                            <Button disabled={buttonState} onClick={GetCode} className="getCode-button" size="large" style={{ color: "grey", marginLeft: "3%",width:"32%",padding:"1px" }} > 发送验证码</Button>
+                            <Button disabled={buttonState} onClick={GetCode} className="getCode-button" size="large" > 发送验证码</Button>
                         </div>
 
                     </Space>
