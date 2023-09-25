@@ -38,14 +38,14 @@ const AdminHome: React.FC = () => {
     let majors: MenuItem[]=[];
     try {
       const gradeResponse = await apis.GetAllSelectInfo({ "queryCategoryId": 1 });
-      grades = gradeResponse.data.data.map((item: any) => ({
+      grades = gradeResponse.data.data.map((item: any,index:number) => ({
         "label": item.gradeName,
         "key": item.gradeName,
         "icon": <AppstoreOutlined />,
       }));  
       const majorResponse = await apis.GetAllSelectInfo({ "queryCategoryId": 2 });
       
-      majors = majorResponse.data.data.map((item: any) => ({
+      majors = majorResponse.data.data.map((item: any, index:number) => ({
         "label": item.subjectName,
         "key": item.subjectId,
         "icon": <AppstoreOutlined />,
@@ -60,19 +60,18 @@ const AdminHome: React.FC = () => {
           "children": [
             {
               "label": '年级',
-              "key":"年级",
+              "key":"年级"+item.desireDepartmentId,
               "icon": <AppstoreOutlined />,
               "children": grades,
             },
             {
               "label": '专业',
-              "key":"专业",
+              "key":"专业"+item.desireDepartmentId,
               "icon": <AppstoreOutlined />,
               "children": majors,
             },
           ],
         });
-        console.log(items)
         setMenuItems(items);
       });
     } catch (error) {
@@ -83,7 +82,6 @@ const AdminHome: React.FC = () => {
   //数据初始化
   useRequest(() => apis.GetAllApplyInfo({ 'queryAllFlag': 0 }), {
     onSuccess: async (res: any) => {
-      console.log(res.data.data)
       setList(res.data.data);
       await getItems();
     }
@@ -97,7 +95,6 @@ const AdminHome: React.FC = () => {
   }, []);
   const getSelectInfo = async (selectInfo: any) => {
     let res = await apis.GetAllApplyInfo(selectInfo);
-    console.log(res.data.data)
     setList(res.data.data);
   };
   //用户信息弹窗
@@ -110,9 +107,6 @@ const AdminHome: React.FC = () => {
   const showUserInfo = async (item: any) => {
     setInfo({})
     let userInfo = await apis.GetOneApplyInfo({ 'registerId': item.registerId });
-    // let partUrl = userInfo.data.data.imgUrl.replace(/\/\//g, "/");
-    // userInfo.data.data.imgUrl = partUrl;
-    console.log(userInfo.data.data)
     setInfo(userInfo.data.data);
   }
   const onUserInfoClose = () => {
@@ -149,10 +143,6 @@ const AdminHome: React.FC = () => {
           "isApprovedFlag": type == "pass" ? "2" : "3",
           "emailContent": type == "pass" ? `${item.name}同学: \n\t` + passMessage : `${item.name}同学: \n\t` + outMessage
         }).then( async (res) => {
-          // if (res.data.message == "成功修改报名表状态为已通过，并将其添加至预备成员") {
-          //   item.loading = false;
-          //   setList([...list]);
-          // }
           let list = await apis.GetAllApplyInfo({ 'queryAllFlag': 0 });
           setList(list.data.data);
           item.loading = false;
@@ -174,14 +164,11 @@ const AdminHome: React.FC = () => {
     }
   };
   const onClick: MenuProps['onClick'] = (e) => {
-    console.log('click ', e);
-    if(e.keyPath[1]=="专业"){
-      console.log({ 'desireDepartmentId': e.keyPath[2],'subjectId':e.keyPath[0]})
+    if(e.keyPath[1].substring(0,2)=="专业"){
       const selectInfo = {'desireDepartmentId': e.keyPath[2],'subjectId':e.keyPath[0]};
       getSelectInfo(selectInfo);
     }
-    else if(e.keyPath[1]=="年级"){
-      console.log({ 'desireDepartmentId': e.keyPath[2],'gradeName':e.keyPath[0]})
+    else if(e.keyPath[1].substring(0,2)=="年级"){
       const selectInfo = {'desireDepartmentId': e.keyPath[2],'gradeName':e.keyPath[0]};
       getSelectInfo(selectInfo);
     }
@@ -190,12 +177,6 @@ const AdminHome: React.FC = () => {
   return (
     <div className="admin-container">
       <div className="left-menu-content">
-        {/* <Menu
-          onClick={onClick}
-          style={{ width: "100%", marginTop: 30 }}
-          mode="inline"
-          items={items}
-        /> */}
         <Menu onClick={onClick} style={{ width: '100%', marginTop: 30 }} mode="inline">
           {menuItems.map((item: MenuItem) => (
             <Menu.SubMenu key={item.key} title={item.label} icon={item.icon}>
@@ -222,9 +203,6 @@ const AdminHome: React.FC = () => {
             <div className="header-switch"><Switch checkedChildren="全选" unCheckedChildren="无" defaultChecked={allSelectState} onChange={AllSelect} /></div>
           </div>
         </div>
-        {/* <div className="tabs-content">
-                    <Tabs items={tabs} onChange={ChangeTabs} />
-                </div> */}
         {
           <div className="list-content">
             <List
@@ -293,6 +271,9 @@ const AdminHome: React.FC = () => {
             </Col>
             <Col span={12}>
               <DescriptionItem title="学院" content={info.facultyName} />
+            </Col>
+            <Col span={12}>
+              <DescriptionItem title="专业" content={info.subjectName} />
             </Col>
             <Col span={12}>
               <DescriptionItem title="班级" content={info.className} />

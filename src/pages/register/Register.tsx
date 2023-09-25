@@ -177,7 +177,7 @@ const Register: React.FC = function () {
         >
           <div className='text' style={{display:'block',width:'100%', marginBottom: '2%', cursor: 'pointer' }}>
             <Tooltip title="用于登录的信息，请认真填写！">
-              <h2 style={{textAlign:'center'}}>用户登录信息</h2>
+              <div style={{textAlign:'center',fontSize:'20px'}}>用户登录信息</div>
             </Tooltip>
           </div>
           <Form.Item
@@ -240,7 +240,7 @@ const Register: React.FC = function () {
           </Form.Item>
           <div style={{ display: 'block', width: '100%', marginBottom: '2%', cursor: 'pointer' }}>
             <Tooltip title="用于后续报名的信息，请认真填写！">
-              <h2 style={{textAlign:'center'}}>个人信息完善</h2>
+              <div style={{textAlign:'center',fontSize:'20px'}}>个人信息完善</div>
             </Tooltip>
           </div>
           <Form.Item

@@ -40,6 +40,9 @@ const Login: React.FC = function () {
         //     }
         // }
         try {
+          if(localStorage.getItem('token')){
+            localStorage.removeItem('token')
+          }
           console.log(form);
           let res = await apis.Login(form);
           console.log(res.data.data)
