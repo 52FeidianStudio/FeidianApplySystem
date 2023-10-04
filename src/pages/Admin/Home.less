@@ -1,168 +1,213 @@
 html {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
-.admin-container{
-    display: flex;
-    margin-top: 50px;
-    border-radius: 15px;
-    overflow: hidden;
+
+.admin-container {
+  display: flex;
+  margin-top: 35px;
+  border-radius: 15px;
+  overflow: hidden;
+  height: 90vh;
 }
-.left-menu-content{
-    width: 20%;
-    min-height: 80vh;
-    background: #fff;
-    @media only screen and (max-width:730px) {
-      width: 20%;
-      margin: 30px auto;
-    }
+
+.left-menu-content {
+  width: 20%;
+  min-height: 80vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+
+  @media only screen and (max-width:730px) {
+    margin: 30px auto;
+  }
+
+  .menu-btn {
+    margin: 0px auto;
+    height: 50px;
+  }
 }
+
 .admin-home-content {
-    width: 80%;
-    min-height: 80vh;
-    background: #fff;
+  // width: 80%;
+  flex: 1;
+  min-height: 80vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (max-width:730px) {
+    width: 95%;
+    margin: 30px auto;
+  }
+
+  .header-content {
+    height: 80px;
+    width: 100%;
+    position: relative;
 
     @media only screen and (max-width:730px) {
-        width: 95%;
-        margin: 30px auto;
+      display: flex;
+      justify-content: space-around;
     }
 
-    .header-content {
-        height: 80px;
-        width: 100%;
+
+    .img {
+      width: 110px;
+
+      img {
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        left: 38px;
+        top: 30px;
+
+        @media only screen and (max-width:730px) {
+          left: 20px;
+          top: 25px;
+        }
+      }
+    }
+
+    .header-title {
+      font-size: 30px;
+      letter-spacing: 3px;
+      position: absolute;
+      left: 111px;
+      top: 38px;
+      color: lightslategrey;
+
+      @media only screen and (max-width:730px) {
+        display: none;
+        color: #fff;
+      }
+    }
+
+    @media only screen and (min-width:730px) {
+      .header-button {
+        position: absolute;
+        right: 130px;
+        top: 47px;
+      }
+
+      .header-switch {
+        position: absolute;
+        right: 210px;
+        top: 51px;
+      }
+    }
+
+    @media only screen and (max-width:730px) {
+      .header-button-container {
+        display: flex;
+        flex-direction: row-reverse;
         position: relative;
+        top: 40px;
 
-        img {
-            width: 60px;
-            height: 60px;
-            position: absolute;
-            left: 38px;
-            top: 30px;
-
-            @media only screen and (max-width:730px) {
-                left: 30px;
-                top: 25px;
-            }
+        .header-button {
+          margin-left: 3vw;
+          margin-top: -.5vw;
         }
-
-
-
-        .header-title {
-            font-size: 30px;
-            letter-spacing: 3px;
-            position: absolute;
-            left: 111px;
-            top: 38px;
-            color: lightslategrey;
-
-            @media only screen and (max-width:730px) {
-                font-size: 0;
-                color: #fff;
-            }
-        }
-
-        @media only screen and (min-width:730px) {
-            .header-button {
-                position: absolute;
-                right: 130px;
-                top: 47px;
-            }
-
-            .header-switch {
-                position: absolute;
-                right: 210px;
-                top: 51px;
-            }
-        }
-
-        @media only screen and (max-width:730px) {
-            .header-button-container {
-                display: flex;
-                flex-direction: row-reverse;
-                position: relative;
-                top: 40px;
-                left: -25px;
-
-                .header-button {
-                    margin-left: 3vw;
-                    margin-top: -.5vw;
-                }
-            }
-        }
-
-
+      }
     }
 
-    .tabs-content {
-        margin: 0 50px;
-        padding-top: 20px;
 
-        @media only screen and (max-width:730px) {
-            margin: 0 40px;
-            padding-top: 2vw;
-        }
-    }
+  }
 
-    .list-content {
-        padding: 10px 30px 25px 30px;
-    }
+  .tabs-content {
+    margin: 0 50px;
+    padding-top: 20px;
 
     @media only screen and (max-width:730px) {
-        .list-content {
-            padding: 10px 10px 25px 10px;
-
-            .ant-list-item {
-                padding: 15px;
-            }
-
-            h4 {
-                margin-top: 1.5vw;
-            }
-
-            .name-title {
-                width: 18vw;
-                margin-right: 2vw;
-            }
-
-            .department-title {
-                width: 20vw;
-                position: absolute;
-                left: 40vw;
-            }
-        }
+      margin: 0 40px;
+      padding-top: 2vw;
     }
+  }
 
-    .description {
-        line-height: 30px;
-        height: 30px;
-        width: 90%;
-        overflow: hidden;
-
-        @media only screen and (max-width:730px) {
-            position: absolute;
-            font-size: 0;
-        }
+  .list-content {
+    padding: 10px 30px 25px 30px;
+    margin-bottom: 30px;
+    overflow-y: auto;
+    flex: 1;
+    .ant-list-item{
+      padding: 25px;
     }
+  }
+
+  @media only screen and (max-width:730px) {
+    .list-content {
+      padding: 10px 10px 25px 10px;
+      overflow-x: hidden;
+
+      .ant-list-item {
+        padding: 15px;
+
+        .ant-list-item-meta {
+          // line-height: 100%;
+
+          .ant-list-item-meta-content {
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
+
+      h4 {
+        margin-top: 1.5vw;
+      }
+
+      .name-title {
+        width: 18vw;
+        margin-right: 2vw;
+      }
+
+      .department-title {
+        width: 20vw;
+        position: absolute;
+        left: 40vw;
+      }
+    }
+  }
+
+  .description {
+    line-height: 30px;
+    height: 30px;
+    width: 90%;
+    overflow: hidden;
+
+    @media only screen and (max-width:730px) {
+      position: absolute;
+      font-size: 0;
+    }
+  }
 
 }
 
 .application-title {
-    padding: 20px 50px;
+  padding: 20px 50px;
 
-    @media only screen and (max-width:730px) {
-        padding: 0px 0px;
-    }
+  @media only screen and (max-width:730px) {
+    padding: 0px 0px;
+  }
 }
 
 .info-title {
-    line-height: 30px;
-    padding: 0 2px;
-    border-bottom: 3px solid cornflowerblue;
-    display: inline-block;
-    color: grey;
-    margin-bottom: 10px;
+  line-height: 30px;
+  padding: 0 2px;
+  border-bottom: 3px solid cornflowerblue;
+  display: inline-block;
+  color: grey;
+  margin-bottom: 10px;
 }
 
 .info-content {
-    line-height: 30px;
-    color: #4fa0f4;
+  line-height: 30px;
+  color: #4fa0f4;
+}
+
+@media only screen and (max-width:730px) {
+  .not-collapsed {
+    width: fit-content;
+  }
 }

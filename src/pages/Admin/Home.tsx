@@ -24,8 +24,14 @@ const AdminHome: React.FC = () => {
   const [info, setInfo] = useState<any>({});
   // const [tabs, setTabs] = useState<TabsType[]>([]);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [collapsed, setCollapsed] = useState(true);
+  const [openKeys, setOpenKeys] = useState<string[]>([]);
   const navigate = useNavigate()
   //侧边栏相关
+  const toggleSidebar = () => {
+    setCollapsed(!collapsed);
+    setOpenKeys([]);
+  };
   type MenuItem = {
     label: string;
     key: string | number;
@@ -176,8 +182,8 @@ const AdminHome: React.FC = () => {
   };
   return (
     <div className="admin-container">
-      <div className="left-menu-content">
-        <Menu onClick={onClick} style={{ width: '100%', marginTop: 30 }} mode="inline">
+      <div className={`left-menu-content ${collapsed ? "collapsed" : "not-collapsed"}`}>
+        <Menu onClick={onClick} openKeys={openKeys} onOpenChange={openKeys => setOpenKeys(openKeys)} style={{ width: '100%', marginTop: 30 }} mode="inline">
           {menuItems.map((item: MenuItem) => (
             <Menu.SubMenu key={item.key} title={item.label} icon={item.icon}>
               {item.children?.map((child: MenuItem) => (
@@ -192,12 +198,17 @@ const AdminHome: React.FC = () => {
             </Menu.SubMenu>
           ))}
         </Menu>
+        <div className="menu-btn">
+          <Button onClick={toggleSidebar} type="primary">{collapsed?'展开':'收起'}</Button>
+        </div>
       </div>
       <div className="admin-home-content">
         <div className="header-content">
-          <img alt="logo" src={logoUrl} />
+          <div className="img"  style={{display:`${collapsed ? 'flex':'none'}`}}>
+            <img alt="logo" src={logoUrl}/>
+          </div>
           <div className="header-title">报名系统后台</div>
-          <div className="header-button-container">
+          <div className="header-button-container" style={{left:`${collapsed ? '-25px':'0'}`}}>
             <div className="header-button"><Button type="primary" onClick={showReviewModal}>审核</Button></div>
             <div style={{ right: "58px" }} className="header-button"><Button onClick={() => { localStorage.setItem("token", ''); navigate("/") }}>退出</Button></div>
             <div className="header-switch"><Switch checkedChildren="全选" unCheckedChildren="无" defaultChecked={allSelectState} onChange={AllSelect} /></div>
@@ -229,9 +240,7 @@ const AdminHome: React.FC = () => {
                   <List.Item.Meta
                     avatar={<Avatar src={item.imgUrl} />}
                     title={<div className="name-title">{item.name}</div>}
-                    description={<div className="description">{item.resume}</div>}
                   />
-                  <div className="department-title">{item.department}</div>
                 </List.Item>
               )}
             />

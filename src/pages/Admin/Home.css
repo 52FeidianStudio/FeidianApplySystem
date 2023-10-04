@@ -3,25 +3,35 @@ html {
 }
 .admin-container {
   display: flex;
-  margin-top: 50px;
+  margin-top: 35px;
   border-radius: 15px;
   overflow: hidden;
+  height: 90vh;
 }
 .left-menu-content {
   width: 20%;
   min-height: 80vh;
   background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
 }
 @media only screen and (max-width: 730px) {
   .left-menu-content {
-    width: 20%;
     margin: 30px auto;
   }
 }
+.left-menu-content .menu-btn {
+  margin: 0px auto;
+  height: 50px;
+}
 .admin-home-content {
-  width: 80%;
+  flex: 1;
   min-height: 80vh;
   background: #fff;
+  display: flex;
+  flex-direction: column;
 }
 @media only screen and (max-width: 730px) {
   .admin-home-content {
@@ -34,7 +44,16 @@ html {
   width: 100%;
   position: relative;
 }
-.admin-home-content .header-content img {
+@media only screen and (max-width: 730px) {
+  .admin-home-content .header-content {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+.admin-home-content .header-content .img {
+  width: 110px;
+}
+.admin-home-content .header-content .img img {
   width: 60px;
   height: 60px;
   position: absolute;
@@ -42,8 +61,8 @@ html {
   top: 30px;
 }
 @media only screen and (max-width: 730px) {
-  .admin-home-content .header-content img {
-    left: 30px;
+  .admin-home-content .header-content .img img {
+    left: 20px;
     top: 25px;
   }
 }
@@ -57,7 +76,7 @@ html {
 }
 @media only screen and (max-width: 730px) {
   .admin-home-content .header-content .header-title {
-    font-size: 0;
+    display: none;
     color: #fff;
   }
 }
@@ -79,7 +98,6 @@ html {
     flex-direction: row-reverse;
     position: relative;
     top: 40px;
-    left: -25px;
   }
   .admin-home-content .header-content .header-button-container .header-button {
     margin-left: 3vw;
@@ -98,13 +116,24 @@ html {
 }
 .admin-home-content .list-content {
   padding: 10px 30px 25px 30px;
+  margin-bottom: 30px;
+  overflow-y: auto;
+  flex: 1;
+}
+.admin-home-content .list-content .ant-list-item {
+  padding: 25px;
 }
 @media only screen and (max-width: 730px) {
   .admin-home-content .list-content {
     padding: 10px 10px 25px 10px;
+    overflow-x: hidden;
   }
   .admin-home-content .list-content .ant-list-item {
     padding: 15px;
+  }
+  .admin-home-content .list-content .ant-list-item .ant-list-item-meta .ant-list-item-meta-content {
+    display: flex;
+    align-items: center;
   }
   .admin-home-content .list-content h4 {
     margin-top: 1.5vw;
@@ -150,5 +179,10 @@ html {
 .info-content {
   line-height: 30px;
   color: #4fa0f4;
+}
+@media only screen and (max-width: 730px) {
+  .not-collapsed {
+    width: fit-content;
+  }
 }
 /*# sourceMappingURL=./Home.css.map */
