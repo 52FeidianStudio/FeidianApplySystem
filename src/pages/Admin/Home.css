@@ -17,14 +17,18 @@ html {
   justify-content: space-between;
   overflow: hidden;
 }
+.left-menu-content .menu-btn {
+  display: none;
+}
 @media only screen and (max-width: 730px) {
   .left-menu-content {
     margin: 30px auto;
   }
-}
-.left-menu-content .menu-btn {
-  margin: 0px auto;
-  height: 50px;
+  .left-menu-content .menu-btn {
+    display: flex;
+    margin: 0px auto;
+    height: 50px;
+  }
 }
 .admin-home-content {
   flex: 1;

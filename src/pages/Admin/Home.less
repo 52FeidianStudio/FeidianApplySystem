@@ -19,14 +19,19 @@ html {
   justify-content: space-between;
   overflow: hidden;
 
+  .menu-btn{
+    display: none;
+  }
   @media only screen and (max-width:730px) {
     margin: 30px auto;
+    .menu-btn {
+      display: flex;
+      margin: 0px auto;
+      height: 50px;
+    }
   }
 
-  .menu-btn {
-    margin: 0px auto;
-    height: 50px;
-  }
+  
 }
 
 .admin-home-content {
